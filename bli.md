@@ -17,3 +17,7 @@ _*studentpris krever at gyldig studiebevis kan fremvises ved forespørsel_
 ### Kjøp tilgang til Hackheim og bli en helt her:
 
 https://payment.hackheim.no/
+
+### Terminering av medlemsskap:
+
+Kontakt oss på hackheim@hackheim.no
