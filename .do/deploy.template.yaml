@@ -1,0 +1,8 @@
+spec:
+  name: hackheimweb
+  static_sites:
+  - environment_slug: html
+    git:
+      branch: master
+      repo_clone_url: https://github.com/hackheim/hackheimweb.git
+    name: hackheimweb
