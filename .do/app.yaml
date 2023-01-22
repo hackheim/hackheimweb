@@ -1,0 +1,8 @@
+name: hackheimweb
+static_sites:
+- environment_slug: html
+  github:
+    branch: master
+    deploy_on_push: true
+    repo: hackheim/hackheimweb
+  name: hackheimweb
