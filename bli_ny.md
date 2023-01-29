@@ -16,11 +16,11 @@ _*studentpris krever at gyldig studiebevis kan fremvises ved forespørsel_
 
 ### Kjøp tilgang til Hackheim og bli en helt her:
 
-[https://dummylink-til-betalingslosning.no]
+[https://dummylink-til-betalingslosning(periode.no).no]
 
 ### Terminering av abonnement:
 
-Kontakt oss på: hackheim@hackheim.no eller stopp det selv, fra vipps eller internt i betalingsløsningen [https://dummylink-til-betalingslosning.no]
+Kontakt oss på: hackheim@hackheim.no eller stopp det selv, fra vipps eller internt i betalingsløsningen [https://dummylink-til-betalingslosning(periode.no).no]
 
 #### Firmainformasjon:
 
