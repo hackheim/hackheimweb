@@ -1,38 +1,24 @@
 # Kontakt oss:
 
-## Organisasjonen Hackheim (om aktiviteter, workshops, prosjekter etc.)
+## Organisasjonen Hackheim (om aktiviteter, prosjekter, idealistisk arbeid etc.)
 
-### Orgnr: 
+#### Orgnr: 998543223 
 
-998543223 
+#### Epost: [hackheim@hackheim.no](mailto:hackheim@hackheim.no)
 
-### Epost:
+#### Snailmail / Meat-space: Munkegata 58, 7011 Trondheim
 
-[hackheim@hackheim.no](mailto:hackheim@hackheim.no)
-
-### Snailmail / Meat-space: 
-
-Munkegata 58, 7011 Trondheim
-
-### Skillinger til sparegris
+#### Skillinger til sparegris
 
 Bankkonto: 4202 41 69574
 Nymotens VIPPPS: #87210 Hackheim
 
 ## Hackheim Industries AS (Abonnement-tjenester / Verktøyleie)
 
-### Orgnr:
+#### Orgnr: 916331096 
 
-916331096 
+#### Snailmail / Meat-space: Munkegata 58, 7011 Trondheim
 
-### Snailmail / Meat-space: 
+#### Epost: [hackheim@hackheim.no](mailto:hackheim@hackheim.no)
 
-Munkegata 58, 7011 Trondheim
-
-### Epost:
-
-[hackheim@hackheim.no](mailto:hackheim@hackheim.no)
-
-### TLF:
-
-977 30 654 (M-F 11-19)
+#### TLF: 977 30 654 (M-F 11-19)
