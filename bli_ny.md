@@ -28,7 +28,7 @@ Tjenesten er på løpende basis, og endringer er gjeldende fra neste fornyelse/u
 
 ### Vilkår:
 
-Les våre salgsvilkår her: [https://hackheim.no/#!vilkaar.md]
+Les våre salgsvilkår her: https://hackheim.no/#!vilkaar.md
 
 #### Firmainformasjon:
 
