@@ -27,7 +27,7 @@ Avtalen er bindende for begge parter når kjøperen har sendt sin bestilling til
 Avtalen er likevel ikke bindende hvis det har forekommet skrive- eller tastefeil i tilbudet fra selgeren i bestillingsløsningen i nettbutikken eller i kjøperens bestilling, og den annen part innså eller burde ha innsett at det forelå en slik feil.
 # 5. Betalingen
 
-Selgeren kan kreve betaling for varen fra det tidspunkt den blir sendt fra selgeren til kjøperen.
+Selgeren kan kreve betaling for varen fra det tidspunkt den blir sendt fra selgeren til kjøperen. Betaling gjennomføres gjennom vår betalingsløsning, og støtter per dags dato kun Vipps.
 
 Dersom kjøperen bruker kredittkort eller debetkort ved betaling, kan selgeren reservere kjøpesummen på kortet ved bestilling. Kortet blir belastet samme dag som varen sendes.
 
