@@ -1,7 +1,7 @@
 ## Hva får du?
 
 - Gir deg tilgang til lokalene våre på work-work
-- Et utvalg verktøy
+- Tilgang til bruk av vårt verktøy og utstyr.
 - Mulighet til å dra nytte av de mange fasilitetene på work-work
 - Rabatt i kafèen
 - Støtt Trondheim sitt kuleste community
