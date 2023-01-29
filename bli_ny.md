@@ -20,11 +20,11 @@ _*studentpris krever at gyldig studiebevis kan fremvises ved forespørsel_
 
 Tjenesten er løpende, på månedlig basis, betalinger håndteres gjennom vår leverandør periode.no, med Vipps.
 
-### Terminering av abonnement:
+### Terminering og endring av abonnement:
 
-Kontakt oss på: hackheim@hackheim.no eller stopp det selv, fra vipps eller internt i betalingsløsningen [https://dummylink-til-betalingslosning(periode.no).no]
+Kontakt oss på: hackheim@hackheim.no eller gjør det selv, fra vipps eller internt i betalingsløsningen [https://dummylink-til-betalingslosning(periode.no).no]
 
-Ved terminering av abonnement, vil abonnement stoppes etter siste betalte periode er utløpt.
+Tjenesten er på løpende basis, og endringer er gjeldende fra neste fornyelse/utløp.
 
 ### Vilkår:
 
