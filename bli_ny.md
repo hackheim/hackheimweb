@@ -30,7 +30,7 @@ Tjenesten er på løpende basis, og endringer er gjeldende fra neste fornyelse/u
 
 Les våre salgsvilkår her: https://hackheim.no/#!vilkaar.md
 
-#### Firmainformasjon:
+### Firmainformasjon:
 
 Hackheim Industries AS(orgnr: 916331096)
 Munkegata 58, 7011 Trondheim.
