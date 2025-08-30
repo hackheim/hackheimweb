@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+    title: string;
+    image: {
+        src: string;
+        alt: string;
+        width: number;
+        height: number;
+    };
+    paragraphs: Array<string>;
+    button: {
+        label: string;
+        icon: string;
+        href?: string;
+    };
+}
+
+const { title, image, paragraphs, button } = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    const iconModule = await import("@lucide/astro");
+    return iconModule[iconName];
+};
+
+const Icon = await getIcon(button.icon);
+---
+
+<section class="py-16 px-4">
+    <div class="container mx-auto max-w-6xl">
+        <div class="text-center mb-12">
+            <h3
+                class="text-3xl md:text-4xl font-bold text-primary mb-4 mt-0"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                {title}
+            </h3>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <div
+                    class="w-full h-64 bg-muted rounded-lg shadow-lg overflow-hidden"
+                >
+                    <Image
+                        src={image.src}
+                        alt={image.alt}
+                        class="w-full h-full object-cover"
+                        width={image.width}
+                        height={image.height}
+                    />
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                {
+                    paragraphs.map((paragraph) => (
+                        <p class="text-foreground">{paragraph}</p>
+                    ))
+                }
+                <div class="pt-4 flex justify-center md:justify-start">
+                    {
+                        button.href ? (
+                            <a
+                                href={button.href}
+                                class="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md flex items-center transition-colors no-underline"
+                            >
+                                <Icon class="w-5 h-5 mr-2" />
+                                {button.label}
+                            </a>
+                        ) : (
+                            <button class="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md flex items-center transition-colors">
+                                <Icon class="w-5 h-5 mr-2" />
+                                {button.label}
+                            </button>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

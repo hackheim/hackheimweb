@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+    image: {
+        src: string;
+        alt: string;
+        width: number;
+        height: number;
+    };
+    title: string;
+    subtitle: string;
+    buttons: Array<{
+        label: string;
+        icon: string;
+        variant: "primary" | "outline";
+        href?: string;
+    }>;
+}
+
+const { image, title, subtitle, buttons } = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    const iconModule = await import("@lucide/astro");
+    return iconModule[iconName];
+};
+---
+
+<section
+    class="py-20 px-4 text-center bg-gradient-to-b from-card to-background"
+>
+    <div class="container mx-auto max-w-4xl">
+        <div class="mb-8">
+            <div
+                class="w-full h-64 md:h-80 bg-muted rounded-lg shadow-lg overflow-hidden"
+            >
+                <Image
+                    src={image.src}
+                    alt={image.alt}
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                    width={image.width}
+                    height={image.height}
+                />
+            </div>
+        </div>
+        <h2
+            class="text-4xl md:text-6xl font-bold text-primary mb-6 text-balance"
+            style="font-family: 'Space Grotesk', sans-serif;"
+        >
+            {title}
+        </h2>
+        <p class="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty">
+            {subtitle}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            {
+                buttons.map(async (button) => {
+                    const Icon = await getIcon(button.icon);
+                    const buttonClass =
+                        button.variant === "primary"
+                            ? "bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-md flex items-center justify-center transition-colors no-underline"
+                            : "border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent border-2 px-4 py-2 rounded-md flex items-center justify-center transition-colors no-underline";
+
+                    return button.href ? (
+                        <a href={button.href} class={buttonClass}>
+                            <Icon class="w-5 h-5 mr-2" />
+                            {button.label}
+                        </a>
+                    ) : (
+                        <button class={buttonClass}>
+                            <Icon class="w-5 h-5 mr-2" />
+                            {button.label}
+                        </button>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>

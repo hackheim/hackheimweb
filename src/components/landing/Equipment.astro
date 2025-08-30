@@ -1,0 +1,78 @@
+---
+export interface Props {
+    id?: string;
+    title: string;
+    description: string;
+    equipment: Array<{
+        icon: string;
+        title: string;
+        description: string;
+        href?: string;
+    }>;
+    backgroundClass?: string;
+}
+
+const { id, title, description, equipment, backgroundClass } = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    const iconModule = await import("@lucide/astro");
+    return iconModule[iconName];
+};
+---
+
+<section id={id} class={`py-16 px-4 ${backgroundClass || ""}`}>
+    <div class="container mx-auto max-w-6xl">
+        <div class="text-center mb-12">
+            <h3
+                class="text-3xl md:text-4xl font-bold text-primary mb-4 mt-0"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                {title}
+            </h3>
+            <p class="text-lg text-muted-foreground text-pretty">
+                {description}
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {
+                equipment.map(async (item) => {
+                    const Icon = await getIcon(item.icon);
+                    const cardContent = (
+                        <>
+                            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <Icon class="w-6 h-6 text-accent-foreground" />
+                            </div>
+                            <h4
+                                class="text-lg font-bold text-card-foreground mb-2 mt-0"
+                                style="font-family: 'Space Grotesk', sans-serif;"
+                            >
+                                {item.title}
+                            </h4>
+                            <p class="text-sm text-muted-foreground mb-0">
+                                {item.description}
+                            </p>
+                        </>
+                    );
+
+                    if (item.href) {
+                        return (
+                            <a 
+                                href={item.href}
+                                class="block text-center bg-card border border-border hover:shadow-lg transition-shadow rounded-lg p-6 text-inherit no-underline"
+                            >
+                                {cardContent}
+                            </a>
+                        );
+                    } else {
+                        return (
+                            <div class="text-center bg-card border border-border hover:shadow-lg transition-shadow rounded-lg p-6">
+                                {cardContent}
+                            </div>
+                        );
+                    }
+                })
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,85 @@
+---
+export interface Props {
+    id?: string;
+    title: string;
+    description: string;
+    cards: Array<{
+        title: string;
+        content: string;
+        tags?: Array<string>;
+        details?: Array<{
+            icon: string;
+            text: string;
+        }>;
+    }>;
+}
+
+const { id, title, description, cards } = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    const iconModule = await import("@lucide/astro");
+    return iconModule[iconName];
+};
+---
+
+<section id={id} class="py-16 px-4">
+    <div class="container mx-auto max-w-6xl">
+        <div class="text-center mb-12">
+            <h3
+                class="text-3xl md:text-4xl font-bold text-primary mb-4 mt-0"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                {title}
+            </h3>
+            <p
+                class="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty"
+            >
+                {description}
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            {
+                cards.map(async (card) => (
+                    <div>
+                        <div class="bg-card border border-border rounded-lg shadow-sm p-6">
+                            <h4
+                                class="text-xl font-bold text-card-foreground mb-4 mt-0"
+                                style="font-family: 'Space Grotesk', sans-serif;"
+                            >
+                                {card.title}
+                            </h4>
+                            <p class="text-card-foreground mb-4">
+                                {card.content}
+                            </p>
+                            {card.tags && (
+                                <div class="flex flex-wrap gap-2">
+                                    {card.tags.map((tag) => (
+                                        <span class="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                            {card.details && (
+                                <div class="space-y-2">
+                                    {card.details.map(async (detail) => {
+                                        const Icon = await getIcon(detail.icon);
+                                        return (
+                                            <div class="flex items-center space-x-2">
+                                                <Icon class="w-5 h-5 text-accent" />
+                                                <span class="text-card-foreground">
+                                                    {detail.text}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

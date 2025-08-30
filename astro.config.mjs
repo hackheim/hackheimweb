@@ -16,20 +16,49 @@ export default defineConfig({
         replacesTitle: true,
       },
       sidebar: [
-        // {
-        //   label: "Intro",
-        //   translations: {
-        //     en: "Intro",
-        //   },
-        //   items: [
-        //     {
-        //       label: "Velkommen",
-        //       slug: "welcome/about",
-        //     },
-        //     // Each item here is one entry in the navigation menu.
-        //     { label: "Example Guide", slug: "guides/example" },
-        //   ],
-        // },
+        {
+          label: "Intro",
+          translations: {
+            en: "Intro",
+          },
+          items: [
+            {
+              label: "Bli med i Hackheim",
+              translations: {
+                en: "Join Hackheim",
+              },
+              slug: "wiki/welcome/join",
+            },
+            {
+              label: "Regler",
+              translations: {
+                en: "Rules",
+              },
+              slug: "wiki/welcome/rules",
+            },
+            {
+              label: "Utstyr",
+              items: [
+                {
+                  label: "3D Printer",
+                  slug: "wiki/welcome/equipment/3d-printer",
+                },
+                {
+                  label: "Laserkutter",
+                  slug: "wiki/welcome/equipment/laser",
+                },
+                {
+                  label: "Materialer for Laserkutter",
+                  slug: "wiki/welcome/equipment/laser-materials",
+                },
+              ],
+            },
+            {
+              label: "Kontakt oss",
+              slug: "wiki/welcome/contact",
+            },
+          ],
+        },
         // {
         //   label: "Dokumentasjon",
         //   autogenerate: { directory: "reference" },
@@ -50,7 +79,7 @@ export default defineConfig({
       locales: {
         root: {
           label: "Norsk",
-          lang: "nb-no",
+          lang: "nb-NO",
         },
         en: {
           label: "English",

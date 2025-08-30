@@ -1,0 +1,139 @@
+---
+export interface Props {
+    id?: string;
+    title: string;
+    cardTitle: string;
+    cardDescription: string;
+    openDays: Array<{
+        day: string;
+        time: string;
+    }>;
+    description: string;
+    location?: {
+        address: string;
+        details: string;
+        mapUrl?: string;
+    };
+    button?: {
+        label: string;
+        icon: string;
+        href?: string;
+    };
+    backgroundClass?: string;
+}
+
+const {
+    id,
+    title,
+    cardTitle,
+    cardDescription,
+    openDays,
+    description,
+    location,
+    button,
+    backgroundClass,
+} = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    const iconModule = await import("@lucide/astro");
+    return iconModule[iconName];
+};
+
+const CalendarIcon = await getIcon("Calendar");
+const MapPinIcon = await getIcon("MapPin");
+const ButtonIcon = button && (await getIcon(button.icon));
+---
+
+<section id={id} class={`py-16 px-4 ${backgroundClass || ""}`}>
+    <div class="container mx-auto max-w-4xl text-center">
+        <h3
+            class="text-3xl md:text-4xl font-bold text-primary mb-8 mt-0"
+            style="font-family: 'Space Grotesk', sans-serif;"
+        >
+            {title}
+        </h3>
+
+        <div
+            class="bg-card border border-border rounded-lg max-w-2xl mx-auto p-6"
+        >
+            <h4
+                class="text-2xl font-bold text-card-foreground mb-2 mt-0"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                {cardTitle}
+            </h4>
+            <p class="text-muted-foreground mb-6">
+                {cardDescription}
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                {
+                    openDays.map((day) => (
+                        <div class="flex items-center justify-center space-x-2 p-4 bg-accent/10 rounded-lg">
+                            <CalendarIcon class="w-6 h-6 text-accent" />
+                            <div>
+                                <div class="font-semibold text-card-foreground">
+                                    {day.day}
+                                </div>
+                                <div class="text-sm text-muted-foreground">
+                                    {day.time}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <p class="text-card-foreground mb-6">
+                {description}
+            </p>
+
+            {
+                location && (
+                    <div class="mb-6 p-4 bg-accent/5 rounded-lg border border-accent/20 max-w-sm mx-auto">
+                        <div class="flex items-center justify-center space-x-2 mb-2">
+                            <MapPinIcon class="w-5 h-5 text-accent" />
+                            <h5 class="font-semibold text-card-foreground my-0">
+                                Hvor finner du oss
+                            </h5>
+                        </div>
+                        <p class="text-sm text-card-foreground mb-1">
+                            {location.address}
+                        </p>
+                        <p class="text-sm text-muted-foreground mb-3">
+                            {location.details}
+                        </p>
+                        {location.mapUrl && (
+                            <a
+                                href={location.mapUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-accent hover:text-accent/80 text-sm underline"
+                            >
+                                Se på Google Maps
+                            </a>
+                        )}
+                    </div>
+                )
+            }
+
+            {
+                button &&
+                    (button.href ? (
+                        <a
+                            href={button.href}
+                            class="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-md text-lg flex items-center justify-center mx-auto transition-colors"
+                        >
+                            <ButtonIcon class="w-5 h-5 mr-2" />
+                            {button.label}
+                        </a>
+                    ) : (
+                        <button class="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-md text-lg flex items-center justify-center mx-auto transition-colors">
+                            <ButtonIcon class="w-5 h-5 mr-2" />
+                            {button.label}
+                        </button>
+                    ))
+            }
+        </div>
+    </div>
+</section>
