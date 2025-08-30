@@ -1,0 +1,207 @@
+---
+import { Image } from "astro:assets";
+import { LinkButton } from "@astrojs/starlight/components";
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, image, actions = [] } = data.hero || {};
+
+const imageAttrs = {
+    loading: "eager" as const,
+    decoding: "async" as const,
+    width: 400,
+    height: 400,
+    alt: image?.alt || "",
+};
+
+let darkImage: ImageMetadata | undefined;
+let lightImage: ImageMetadata | undefined;
+let rawHtml: string | undefined;
+if (image) {
+    if ("file" in image) {
+        darkImage = image.file;
+    } else if ("dark" in image) {
+        darkImage = image.dark;
+        lightImage = image.light;
+    } else {
+        rawHtml = image.html;
+    }
+}
+---
+
+<section
+    class="py-20 px-4 text-center bg-gradient-to-b from-card to-background"
+>
+    <div class="container mx-auto max-w-4xl">
+        <div class="mb-8">
+            <img
+                src="/hackerspace-workshop-with-people-using-3d-printers.png"
+                alt="Hackheim workshop med medlemmer som jobber med prosjekter"
+                class="w-full h-64 md:h-80 object-cover rounded-lg shadow-lg"
+            />
+        </div>
+        <h2
+            class="text-4xl md:text-6xl font-bold text-primary mb-6 font-[family-name:var(--font-space-grotesk)] text-balance"
+        >
+            Velkommen til Hackheim
+        </h2>
+        <p class="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty">
+            Et makerspace i Trondheim for alle teknologiinteresserte
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+                size="lg"
+                class="bg-primary hover:bg-primary/90 text-primary-foreground"
+            >
+                <Users class="w-5 h-5 mr-2" />
+                Kom på besøk
+            </Button>
+            <Button
+                size="lg"
+                variant="outline"
+                class="border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent"
+            >
+                <Calendar class="w-5 h-5 mr-2" />
+                Se åpne dager
+            </Button>
+        </div>
+    </div>
+</section>
+
+<div class="hero">
+    {
+        darkImage && (
+            <Image
+                src={darkImage}
+                {...imageAttrs}
+                class:list={{ "light:sl-hidden": Boolean(lightImage) }}
+            />
+        )
+    }
+    {
+        lightImage && (
+            <Image src={lightImage} {...imageAttrs} class="dark:sl-hidden" />
+        )
+    }
+    {rawHtml && <div class="hero-html sl-flex" set:html={rawHtml} />}
+    <div class="sl-flex stack">
+        <div class="sl-flex copy">
+            <h1 id="_top" data-page-title set:html={title} />
+            {tagline && <div class="tagline" set:html={tagline} />}
+        </div>
+        {
+            actions.length > 0 && (
+                <div class="sl-flex actions">
+                    {actions.map(
+                        ({
+                            attrs: { class: className, ...attrs } = {},
+                            icon,
+                            link: href,
+                            text,
+                            variant,
+                        }) => (
+                            <LinkButton
+                                {href}
+                                {variant}
+                                icon={icon?.name}
+                                class:list={[className]}
+                                {...attrs}
+                            >
+                                {text}
+                                {icon?.html && (
+                                    <Fragment set:html={icon.html} />
+                                )}
+                            </LinkButton>
+                        ),
+                    )}
+                </div>
+            )
+        }
+    </div>
+</div>
+
+<style>
+    @layer starlight.core {
+        .hero {
+            display: grid;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .hero > img,
+        .hero > .hero-html {
+            object-fit: contain;
+            width: min(70%, 20rem);
+            height: auto;
+            margin-inline: auto;
+        }
+
+        .stack {
+            flex-direction: column;
+            gap: clamp(1.5rem, calc(1.5rem + 1vw), 2rem);
+            text-align: center;
+        }
+
+        .copy {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .copy > * {
+            max-width: 50ch;
+        }
+
+        h1 {
+            font-size: clamp(
+                var(--sl-text-3xl),
+                calc(0.25rem + 5vw),
+                var(--sl-text-6xl)
+            );
+            line-height: var(--sl-line-height-headings);
+            font-weight: 600;
+            color: var(--sl-color-white);
+        }
+
+        .tagline {
+            font-size: clamp(
+                var(--sl-text-base),
+                calc(0.0625rem + 2vw),
+                var(--sl-text-xl)
+            );
+            color: var(--sl-color-gray-2);
+        }
+
+        .actions {
+            gap: 1rem 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (min-width: 50rem) {
+            .hero {
+                grid-template-columns: 7fr 4fr;
+                gap: 3%;
+                padding-block: clamp(2.5rem, calc(1rem + 10vmin), 10rem);
+            }
+
+            .hero > img,
+            .hero > .hero-html {
+                order: 2;
+                width: min(100%, 25rem);
+            }
+
+            .stack {
+                text-align: start;
+            }
+
+            .copy {
+                align-items: flex-start;
+            }
+
+            .actions {
+                justify-content: flex-start;
+            }
+        }
+    }
+</style>

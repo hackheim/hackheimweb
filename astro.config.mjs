@@ -4,6 +4,8 @@ import starlight from "@astrojs/starlight";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -14,27 +16,28 @@ export default defineConfig({
         replacesTitle: true,
       },
       sidebar: [
-        {
-          label: "Intro",
-          translations: {
-            en: "Intro",
-          },
-          items: [
-            {
-              label: "Velkommen",
-              slug: "",
-            },
-            // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", slug: "guides/example" },
-          ],
-        },
-        {
-          label: "Dokumentasjon",
-          autogenerate: { directory: "reference" },
-        },
+        // {
+        //   label: "Intro",
+        //   translations: {
+        //     en: "Intro",
+        //   },
+        //   items: [
+        //     {
+        //       label: "Velkommen",
+        //       slug: "welcome/about",
+        //     },
+        //     // Each item here is one entry in the navigation menu.
+        //     { label: "Example Guide", slug: "guides/example" },
+        //   ],
+        // },
+        // {
+        //   label: "Dokumentasjon",
+        //   autogenerate: { directory: "reference" },
+        // },
       ],
       components: {
         Sidebar: "./src/components/starlight/Sidebar.astro",
+        //Hero: "./src/components/starlight/Hero.astro",
       },
       social: [
         {
@@ -57,8 +60,14 @@ export default defineConfig({
       editLink: {
         baseUrl: "https://github.com/hackheim/hackheimweb/edit/new/",
       },
+      customCss: ["./src/styles/global.css"],
     }),
   ],
+
   adapter: cloudflare(),
   output: "static",
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
