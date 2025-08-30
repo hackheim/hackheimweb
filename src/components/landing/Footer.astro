@@ -1,0 +1,94 @@
+---
+export interface Props {
+    id?: string;
+    title: string;
+    sections: Array<{
+        title: string;
+        content: Array<string>;
+        button?: {
+            label: string;
+            href?: string;
+        };
+    }>;
+    copyright: string;
+}
+
+const { id, title, sections, copyright } = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    const iconModule = await import("@lucide/astro");
+    return iconModule[iconName];
+};
+
+const CpuIcon = await getIcon("Cpu");
+---
+
+<footer id={id} class="py-12 px-4 bg-primary text-primary-foreground">
+    <div class="container mx-auto max-w-6xl">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <div
+                        class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
+                    >
+                        <CpuIcon class="w-5 h-5 text-accent-foreground" />
+                    </div>
+                    <h4
+                        class="text-2xl font-bold my-0"
+                        style="font-family: 'Space Grotesk', sans-serif;"
+                    >
+                        {title}
+                    </h4>
+                </div>
+                <p class="text-primary-foreground/80">
+                    {sections[0]?.content[0]}
+                </p>
+            </div>
+
+            {
+                sections.slice(1).map((section) => (
+                    <div>
+                        <h5
+                            class="font-semibold mb-4 mt-0"
+                            style="font-family: 'Space Grotesk', sans-serif;"
+                        >
+                            {section.title}
+                        </h5>
+                        <div class="space-y-2 text-primary-foreground/80">
+                            {section.content.map((item, index) =>
+                                index === section.content.length - 1 &&
+                                section.button ? (
+                                    <div>
+                                        <p class="mb-4">{item}</p>
+                                        {section.button.href ? (
+                                            <a
+                                                href={section.button.href}
+                                                class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-md transition-colors"
+                                            >
+                                                {section.button.label}
+                                            </a>
+                                        ) : (
+                                            <button class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-md transition-colors">
+                                                {section.button.label}
+                                            </button>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <p>{item}</p>
+                                ),
+                            )}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <div
+            class="border-t border-primary-foreground/20 mt-8 pt-8 text-center"
+        >
+            <p class="text-primary-foreground/60">
+                {copyright}
+            </p>
+        </div>
+    </div>
+</footer>

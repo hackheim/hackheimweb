@@ -16,20 +16,25 @@ export default defineConfig({
         replacesTitle: true,
       },
       sidebar: [
-        // {
-        //   label: "Intro",
-        //   translations: {
-        //     en: "Intro",
-        //   },
-        //   items: [
-        //     {
-        //       label: "Velkommen",
-        //       slug: "welcome/about",
-        //     },
-        //     // Each item here is one entry in the navigation menu.
-        //     { label: "Example Guide", slug: "guides/example" },
-        //   ],
-        // },
+        {
+          label: "Intro",
+          translations: {
+            en: "Intro",
+          },
+          items: [
+            {
+              label: "Bli med i Hackheim",
+              translations: {
+                en: "Join Hackheim",
+              },
+              slug: "wiki/welcome/join",
+            },
+            {
+              label: "Utstyr",
+              slug: "wiki/welcome/equipment",
+            },
+          ],
+        },
         // {
         //   label: "Dokumentasjon",
         //   autogenerate: { directory: "reference" },
