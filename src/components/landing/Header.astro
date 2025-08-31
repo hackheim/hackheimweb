@@ -2,20 +2,21 @@
 import Icon from "../ui/Icon.astro";
 import Button from "../ui/Button.astro";
 
-export interface Props {
-    title: string;
-    navigationItems: Array<{
-        href: string;
-        label: string;
-    }>;
-    ctaButton: {
-        label: string;
-        href?: string;
-    };
-    currentPath?: string;
-}
+import Logo from "../../assets/logo.svg";
 
-const { title, navigationItems, ctaButton, currentPath } = Astro.props;
+const title = "Hackheim";
+const navigationItems = [
+    { href: "#apne-dager", label: "Åpne dager" },
+    { href: "#om-oss", label: "Om oss" },
+    { href: "/wiki/welcome/equipment/3d-printer", label: "Wiki" },
+    { href: "/wiki/welcome/equipment/3d-printer", label: "Utstyr" },
+    { href: "/wiki/welcome/contact", label: "Kontakt" },
+];
+const ctaButton = {
+    label: "Besøk oss",
+    href: "/wiki/welcome/join",
+};
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -23,6 +24,12 @@ const { title, navigationItems, ctaButton, currentPath } = Astro.props;
 >
     <div class="mx-auto px-4 py-4 flex items-center justify-between max-w-7xl">
         <div class="flex items-center space-x-2">
+            <div
+                class="h-10 px-1 bg-primary rounded-lg flex items-center justify-center"
+            >
+                <Logo class="h-6 w-[120px]" fill="white" />
+            </div>
+            <!--
             <div
                 class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center"
             >
@@ -34,6 +41,7 @@ const { title, navigationItems, ctaButton, currentPath } = Astro.props;
             >
                 {title}
             </h1>
+            -->
         </div>
         <nav class="hidden md:flex space-x-6">
             {

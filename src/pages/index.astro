@@ -5,6 +5,7 @@ import Hero from "../components/landing/Hero.astro";
 import About from "../components/landing/About.astro";
 import Equipment from "../components/landing/Equipment.astro";
 import Community from "../components/landing/Community.astro";
+import ProjectShowcase from "../components/landing/ProjectShowcase.astro";
 import Gallery from "../components/landing/Gallery.astro";
 import OpenDays from "../components/landing/OpenDays.astro";
 import Footer from "../components/landing/Footer.astro";
@@ -15,21 +16,7 @@ import communityImage from "../assets/people-collaborating-on-electronics-and-la
 
 <Layout>
     <div class="min-h-screen">
-        <Header
-            title="Hackheim"
-            navigationItems={[
-                { href: "#apne-dager", label: "Åpne dager" },
-                { href: "#om-oss", label: "Om oss" },
-                { href: "/wiki/welcome/equipment/3d-printer", label: "Wiki" },
-                { href: "/wiki/welcome/equipment/3d-printer", label: "Utstyr" },
-                { href: "/wiki/welcome/contact", label: "Kontakt" },
-            ]}
-            ctaButton={{
-                label: "Besøk oss",
-                href: "/wiki/welcome/join",
-            }}
-            currentPath={Astro.url.pathname}
-        />
+        <Header />
         <Hero
             image={{
                 src: heroImage,
@@ -135,6 +122,13 @@ import communityImage from "../assets/people-collaborating-on-electronics-and-la
                 },
             ]}
         />
+        <ProjectShowcase
+            id="prosjekter"
+            title="Medlemsprosjekter"
+            description="Se hva våre kreative medlemmer har skapt med tilgang til vårt utstyr og fellesskap"
+            backgroundClass=""
+            maxProjects={3}
+        />
         <Gallery
             id="galleri"
             title="Vårt makerspace"
@@ -186,35 +180,6 @@ import communityImage from "../assets/people-collaborating-on-electronics-and-la
                 href: "/wiki/welcome/join#medlemskap",
             }}
         />
-        <Footer
-            id="kontakt"
-            title="Hackheim"
-            sections={[
-                {
-                    title: "",
-                    content: [
-                        "Makerspace i Trondheim for alle teknologiinteresserte siden 2012.",
-                    ],
-                },
-                {
-                    title: "Kontakt",
-                    content: [
-                        "hackheim@hackheim.no",
-                        "Trondheim, Norge",
-                        "Åpne dager: Onsdag og søndag fra 18:00",
-                    ],
-                },
-                {
-                    title: "Fellesskap",
-                    content: [
-                        "Bli en del av vårt kreative fellesskap av makere og teknologientusiaster.",
-                    ],
-                    button: {
-                        label: "Happy hacking!",
-                    },
-                },
-            ]}
-            copyright="© 2024 Hackheim. Stiftet i 2012 av kreative ildsjeler."
-        />
+        <Footer />
     </div>
 </Layout>

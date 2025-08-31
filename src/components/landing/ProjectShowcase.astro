@@ -1,0 +1,168 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+export interface Props {
+    id?: string;
+    title: string;
+    description: string;
+    backgroundClass?: string;
+    maxProjects?: number;
+}
+
+const { id, title, description, backgroundClass = "", maxProjects = 3 } = Astro.props;
+
+// Get featured projects, fallback to latest if no featured projects
+const allProjects = await getCollection('projects', ({ data }) => {
+  return data.published !== false;
+});
+
+const featuredProjects = allProjects.filter(p => p.data.featured);
+const latestProjects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const displayProjects = featuredProjects.length >= maxProjects 
+  ? featuredProjects.slice(0, maxProjects)
+  : [...featuredProjects, ...latestProjects.filter(p => !p.data.featured)].slice(0, maxProjects);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('nb-NO', {
+    year: 'numeric',
+    month: 'short'
+  });
+}
+
+function getDifficultyColor(difficulty: string) {
+  switch (difficulty) {
+    case 'beginner': return 'text-green-600 bg-green-100';
+    case 'intermediate': return 'text-yellow-600 bg-yellow-100';
+    case 'advanced': return 'text-red-600 bg-red-100';
+    default: return 'text-gray-600 bg-gray-100';
+  }
+}
+
+function getDifficultyLabel(difficulty: string) {
+  switch (difficulty) {
+    case 'beginner': return 'Nybegynner';
+    case 'intermediate': return 'Middels';
+    case 'advanced': return 'Avansert';
+    default: return difficulty;
+  }
+}
+---
+
+<section id={id} class={`py-16 px-4 ${backgroundClass}`}>
+    <div class="container mx-auto max-w-6xl">
+        <div class="text-center mb-12">
+            <h2 
+                class="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                {title}
+            </h2>
+            <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                {description}
+            </p>
+        </div>
+
+        {displayProjects.length > 0 ? (
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {displayProjects.map(project => (
+                    <article class="bg-card border rounded-lg overflow-hidden hover:shadow-lg transition-shadow group flex flex-col">
+                        {project.data.coverImage && (
+                            <div class="aspect-video overflow-hidden">
+                                <Image 
+                                    src={project.data.coverImage} 
+                                    alt={project.data.title}
+                                    width={600}
+                                    height={338}
+                                    format="webp"
+                                    quality={80}
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                            </div>
+                        )}
+                        
+                        <div class="p-6 flex flex-col justify-between min-h-0 flex-1">
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-primary/10 text-primary rounded text-sm font-medium">
+                                        {project.data.type === 'tutorial' ? '📋 Tutorial' : '🎨 Showcase'}
+                                    </span>
+                                    {project.data.tags.slice(0, 3).map(tag => (
+                                        <span class="px-2 py-1 bg-accent/20 text-accent-foreground rounded text-sm">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                    {project.data.type === 'tutorial' && (
+                                        <span class={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(project.data.difficulty)}`}>
+                                            {getDifficultyLabel(project.data.difficulty)}
+                                        </span>
+                                    )}
+                                </div>
+                                
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
+                                    <a href={`/projects/${project.id}`} class="block">
+                                        {project.data.title}
+                                    </a>
+                                </h3>
+                                
+                                <p class="text-muted-foreground mb-4 line-clamp-3">
+                                    {project.data.description}
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center text-sm text-muted-foreground">
+                                    <Icon name="User" class="w-4 h-4 mr-1" />
+                                    <span class="mr-3">{project.data.author}</span>
+                                    <Icon name="Calendar" class="w-4 h-4 mr-1" />
+                                    <span>{formatDate(project.data.date)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                ))}
+            </div>
+        ) : (
+            <!-- Placeholder when no projects exist -->
+            <div class="text-center py-12 bg-card rounded-lg border border-dashed">
+                <Icon name="Folder" class="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 class="text-xl font-semibold mb-2">Prosjekter kommer snart!</h3>
+                <p class="text-muted-foreground mb-6">
+                    Vi jobber med å legge til inspirerende prosjekter fra medlemmene våre.
+                </p>
+                <Button href="/wiki/welcome/join" variant="outline">
+                    <Icon name="Users" class="w-4 h-4 mr-2" />
+                    Bli medlem og del ditt prosjekt
+                </Button>
+            </div>
+        )}
+
+        <!-- Action buttons -->
+        <div class="text-center">
+            <div class="flex flex-wrap justify-center gap-4">
+                {displayProjects.length > 0 && (
+                    <Button href="/projects" variant="primary">
+                        <Icon name="Grid3X3" class="w-4 h-4 mr-2" />
+                        Se alle prosjekter
+                    </Button>
+                )}
+                <Button href="/wiki/welcome/join" variant="outline">
+                    <Icon name="Users" class="w-4 h-4 mr-2" />
+                    Bli medlem og del ditt prosjekt
+                </Button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>

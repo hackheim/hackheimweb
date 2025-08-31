@@ -1,0 +1,361 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/landing/Header.astro";
+import Footer from "../../components/landing/Footer.astro";
+import Icon from "../../components/ui/Icon.astro";
+import Button from "../../components/ui/Button.astro";
+
+export async function getStaticPaths() {
+    const projects = await getCollection("projects", ({ data }) => {
+        return data.published !== false;
+    });
+
+    return projects.map((project) => ({
+        params: { slug: project.id },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+function formatDate(date: Date) {
+    return date.toLocaleDateString("nb-NO", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
+
+function getDifficultyColor(difficulty: string) {
+    switch (difficulty) {
+        case "beginner":
+            return "text-green-600 bg-green-100";
+        case "intermediate":
+            return "text-yellow-600 bg-yellow-100";
+        case "advanced":
+            return "text-red-600 bg-red-100";
+        default:
+            return "text-gray-600 bg-gray-100";
+    }
+}
+
+function getDifficultyLabel(difficulty: string) {
+    switch (difficulty) {
+        case "beginner":
+            return "Nybegynner";
+        case "intermediate":
+            return "Middels";
+        case "advanced":
+            return "Avansert";
+        default:
+            return difficulty;
+    }
+}
+---
+
+<Layout>
+    <div class="min-h-screen bg-background">
+        <Header />
+
+        <div class="container mx-auto px-4 py-8 max-w-4xl">
+            <!-- Header -->
+            <div class="mb-8">
+                <Button href="/projects" variant="ghost" class="mb-4">
+                    <Icon name="ArrowLeft" class="w-4 h-4 mr-2" />
+                    Tilbake til prosjekter
+                </Button>
+
+                <div class="flex flex-wrap items-center gap-2 mb-4">
+                    {
+                        project.data.tags.map((tag: string) => (
+                            <span class="px-3 py-1 bg-accent/20 text-accent-foreground rounded-full text-sm font-medium">
+                                {tag}
+                            </span>
+                        ))
+                    }
+                </div>
+
+                <h1
+                    class="text-4xl font-bold mb-4 text-foreground"
+                    style="font-family: 'Space Grotesk', sans-serif;"
+                >
+                    {project.data.title}
+                </h1>
+
+                <p class="text-xl text-muted-foreground mb-6">
+                    {project.data.description}
+                </p>
+
+                <!-- Project Meta -->
+                <div
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-card rounded-lg border"
+                >
+                    <div class="text-center">
+                        <Icon
+                            name="User"
+                            class="w-6 h-6 mx-auto mb-2 text-accent"
+                        />
+                        <p class="text-sm text-muted-foreground mt-0 mb-1">
+                            Forfatter
+                        </p>
+                        <p class="font-semibold m-0">{project.data.author}</p>
+                    </div>
+
+                    <div class="text-center">
+                        <Icon
+                            name="Calendar"
+                            class="w-6 h-6 mx-auto mb-2 text-accent"
+                        />
+                        <p class="text-sm text-muted-foreground mt-0 mb-1">
+                            Dato
+                        </p>
+                        <p class="font-semibold m-0">
+                            {formatDate(project.data.date)}
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <Icon
+                            name="Clock"
+                            class="w-6 h-6 mx-auto mb-2 text-accent"
+                        />
+                        <p class="text-sm text-muted-foreground mt-0 mb-1">
+                            Estimert tid
+                        </p>
+                        <p class="font-semibold m-0">
+                            {project.data.estimatedTime || "Ikke oppgitt"}
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="space-y-2">
+                            <div
+                                class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(project.data.difficulty)}`}
+                            >
+                                {getDifficultyLabel(project.data.difficulty)}
+                            </div>
+                            <div class="text-xs text-muted-foreground">
+                                {
+                                    project.data.type === "tutorial"
+                                        ? "📋 Tutorial"
+                                        : "🎨 Showcase"
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="flex flex-wrap gap-4 mt-6">
+                    {
+                        project.data.githubUrl && (
+                            <Button
+                                href={project.data.githubUrl}
+                                variant="outline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Icon name="Github" class="w-4 h-4 mr-2" />
+                                {project.data.type === "tutorial"
+                                    ? "Kode & Filer"
+                                    : "GitHub"}
+                            </Button>
+                        )
+                    }
+                    {
+                        project.data.projectUrl && (
+                            <Button
+                                href={project.data.projectUrl}
+                                variant="outline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Icon
+                                    name="ExternalLink"
+                                    class="w-4 h-4 mr-2"
+                                />
+                                Se prosjekt
+                            </Button>
+                        )
+                    }
+                    {
+                        project.data.type === "tutorial" &&
+                            (project.data.materials || project.data.tools) && (
+                                <Button href="#materialer" variant="ghost">
+                                    <Icon name="Package" class="w-4 h-4 mr-2" />
+                                    Materialer & Verktøy
+                                </Button>
+                            )
+                    }
+                </div>
+            </div>
+
+            <!-- Cover Image -->
+            {
+                project.data.coverImage && (
+                    <div class="mb-8 flex items-center justify-center min-h-[400px]">
+                        <Image
+                            src={project.data.coverImage}
+                            alt={project.data.title}
+                            width={800}
+                            height={400}
+                            fit="cover"
+                            format="webp"
+                            quality={85}
+                            class="w-full rounded-lg shadow-lg"
+                            style="font-size: 1rem; text-align: center; color: var(--muted-foreground);"
+                        />
+                    </div>
+                )
+            }
+
+            <!-- Content -->
+            <div class="prose prose-lg max-w-none mb-12">
+                <Content />
+            </div>
+
+            <!-- Materials & Tools (Tutorial only) -->
+            {
+                project.data.type === "tutorial" &&
+                    (project.data.materials || project.data.tools) && (
+                        <div id="materialer" class="mb-12">
+                            <h2
+                                class="text-2xl font-bold mb-6"
+                                style="font-family: 'Space Grotesk', sans-serif;"
+                            >
+                                Materialer & Verktøy
+                            </h2>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                {project.data.materials && (
+                                    <div class="bg-card p-6 rounded-lg border">
+                                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                                            <Icon
+                                                name="Package"
+                                                class="w-5 h-5 mr-2 text-accent"
+                                            />
+                                            Materialer
+                                        </h3>
+                                        <ul class="space-y-2">
+                                            {project.data.materials.map(
+                                                (material: string) => (
+                                                    <li class="flex items-start">
+                                                        <Icon
+                                                            name="Check"
+                                                            class="w-4 h-4 mr-2 mt-0.5 text-green-600 flex-shrink-0"
+                                                        />
+                                                        <span>{material}</span>
+                                                    </li>
+                                                ),
+                                            )}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {project.data.tools && (
+                                    <div class="bg-card p-6 rounded-lg border">
+                                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                                            <Icon
+                                                name="Wrench"
+                                                class="w-5 h-5 mr-2 text-accent"
+                                            />
+                                            Verktøy
+                                        </h3>
+                                        <ul class="space-y-2">
+                                            {project.data.tools.map(
+                                                (tool: string) => (
+                                                    <li class="flex items-start">
+                                                        <Icon
+                                                            name="Check"
+                                                            class="w-4 h-4 mr-2 mt-0.5 text-green-600 flex-shrink-0"
+                                                        />
+                                                        <span>{tool}</span>
+                                                    </li>
+                                                ),
+                                            )}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )
+            }
+
+            <!-- CTA Section -->
+            <div class="text-center bg-card p-8 rounded-lg border">
+                {
+                    project.data.type === "tutorial" ? (
+                        <>
+                            <h3 class="text-xl font-semibold mb-4">
+                                Laget du dette prosjektet?
+                            </h3>
+                            <p class="text-muted-foreground mb-6">
+                                Vi elsker å se hva medlemmene våre skaper! Del
+                                ditt resultat med fellesskapet.
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <h3 class="text-xl font-semibold mb-4">
+                                Inspirert av dette prosjektet?
+                            </h3>
+                            <p class="text-muted-foreground mb-6">
+                                Kom til Hackheim og få tilgang til verktøy og
+                                veiledning for dine egne kreative prosjekter.
+                            </p>
+                        </>
+                    )
+                }
+                <div class="flex flex-wrap justify-center gap-4">
+                    <Button href="/wiki/welcome/join" variant="primary">
+                        <Icon name="Users" class="w-4 h-4 mr-2" />
+                        Bli medlem
+                    </Button>
+                    <Button href="/projects" variant="outline">
+                        <Icon name="Grid3X3" class="w-4 h-4 mr-2" />
+                        Se flere prosjekter
+                    </Button>
+                </div>
+            </div>
+        </div>
+
+        <Footer />
+    </div>
+</Layout>
+
+<style>
+    .prose {
+        color: hsl(var(--foreground));
+    }
+
+    .prose h1,
+    .prose h2,
+    .prose h3,
+    .prose h4,
+    .prose h5,
+    .prose h6 {
+        color: hsl(var(--foreground));
+        font-family: "Space Grotesk", sans-serif;
+    }
+
+    .prose code {
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+    }
+
+    .prose pre {
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+    }
+
+    .prose blockquote {
+        border-left: 4px solid hsl(var(--accent));
+        background: hsl(var(--card));
+        padding: 1rem;
+    }
+</style>

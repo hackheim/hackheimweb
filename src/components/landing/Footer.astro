@@ -2,21 +2,34 @@
 import Icon from "../ui/Icon.astro";
 import Button from "../ui/Button.astro";
 
-export interface Props {
-    id?: string;
-    title: string;
-    sections: Array<{
-        title: string;
-        content: Array<string>;
-        button?: {
-            label: string;
-            href?: string;
-        };
-    }>;
-    copyright: string;
-}
-
-const { id, title, sections, copyright } = Astro.props;
+const id = "kontakt";
+const title = "Hackheim";
+const sections = [
+    {
+        title: "",
+        content: [
+            "Makerspace i Trondheim for alle teknologiinteresserte siden 2012.",
+        ],
+    },
+    {
+        title: "Kontakt",
+        content: [
+            "hackheim@hackheim.no",
+            "Trondheim, Norge",
+            "Åpne dager: Onsdag og søndag fra 18:00",
+        ],
+    },
+    {
+        title: "Fellesskap",
+        content: [
+            "Bli en del av vårt kreative fellesskap av makere og teknologientusiaster.",
+        ],
+        button: {
+            label: "Happy hacking!",
+        },
+    },
+];
+const copyright = "© 2024 Hackheim. Stiftet i 2012 av kreative ildsjeler.";
 ---
 
 <footer id={id} class="py-12 px-4 bg-primary text-primary-foreground">

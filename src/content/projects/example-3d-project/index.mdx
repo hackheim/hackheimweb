@@ -1,0 +1,113 @@
+---
+title: "Tilpasset bordlampe med 3D-printing"
+description: "En moderne bordlampe designet og 3D-printet fra bunnen av, med LED-strip og touch-bryter"
+author: "Medlem Eksempel"
+date: 2024-03-15
+tags: ["3D-printing", "Design", "Elektronikk", "LED"]
+type: "tutorial"
+featured: true
+difficulty: "intermediate"
+estimatedTime: "8-12 timer"
+materials:
+  - "PLA filament (hvit og grå)"
+  - "LED-strip (varm hvit)"
+  - "Touch-sensor modul"
+  - "Arduino Nano"
+  - "Strømadapter 12V"
+  - "Kabler og loddematerialer"
+tools:
+  - "3D-printer"
+  - "Loddekolbe"
+  - "Multimeter"
+  - "Bormaskin"
+coverImage: "../showcase-drone-project/drone-showcase.png"
+images:
+  - "/images/projects/lamp-1.jpg"
+  - "/images/projects/lamp-2.jpg"
+  - "/images/projects/lamp-electronics.jpg"
+githubUrl: "https://github.com/hackheim/3d-lamp-project"
+published: true
+---
+
+## Prosjektbeskrivelse
+
+Denne bordlampen ble designet som et helg-prosjekt for å kombinere 3D-printing med grunnleggende elektronikk. Resultatet er en stilren lampe med touch-kontroll og dimming-funksjonalitet.
+
+## Design-prosess
+
+Lampen består av tre hovedkomponenter:
+- **Base**: Huser elektronikken og gir stabilitet
+- **Stamme**: Elegant kurvet design som skjuler kablene
+- **Lampeskjerm**: Diffuserer lyset jevnt
+
+### CAD-modellering
+
+Brukte Fusion 360 til å lage modellene. Spesielt fokus på:
+- Print-vennlige overheng (under 45°)
+- Plass til kabler og elektronikk
+- Modulær design for enkel montering
+
+## 3D-printing
+
+Printet på Prusa i3 MK3S+ med følgende innstillinger:
+- **Lag-høyde**: 0.2mm
+- **Infill**: 15%
+- **Støttemateriale**: Kun for lampeskjermen
+- **Printtid**: Ca. 18 timer totalt
+
+## Elektronikk
+
+### Kretskjema
+Arduino Nano kontrollerer LED-stripen via en MOSFET for dimming. Touch-sensoren gir brukergrensesnitt uten fysiske knapper.
+
+### Programmering
+Enkel kode som håndterer:
+- Touch-deteksjon
+- PWM-dimming
+- Soft on/off animasjoner
+
+```arduino
+#include <CapacitiveSensor.h>
+
+CapacitiveSensor touchSensor = CapacitiveSensor(4, 2);
+int ledPin = 9;
+int brightness = 0;
+bool lampOn = false;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  touchSensor.set_CS_AutocaL_Millis(0xFFFFFFFF);
+}
+
+void loop() {
+  long sensorValue = touchSensor.capacitiveSensor(30);
+
+  if (sensorValue > 1000) {
+    toggleLamp();
+    delay(300); // Debounce
+  }
+
+  updateBrightness();
+}
+```
+
+## Resultat
+
+Lampen fungerer perfekt og har blitt en fast del av arbeidsplassen. Touch-kontrollen er responsiv og dimming-effekten gir fin atmosfære på kveldstid.
+
+## Lærdom
+
+- **3D-printing**: Viktig med riktig orientering for best overflate-finish
+- **Elektronikk**: Kapasitive sensorer kan være sensitive for interferens
+- **Design**: Modulær tilnærming gjorde feilsøking enklere
+
+## Neste steg
+
+Planlegger å legge til:
+- WiFi-kontroll via ESP32
+- RGB LED-strip for farge-variasjon
+- Automatisk lys-sensor for adaptive lys-nivåer
+
+---
+
+*Dette prosjektet ble laget under en weekend på Hackheim. Koden og CAD-filer er tilgjengelige på GitHub for alle som vil lage sin egen versjon!*
