@@ -1,4 +1,7 @@
 ---
+import Icon from "../ui/Icon.astro";
+import Button from "../ui/Button.astro";
+
 export interface Props {
     id?: string;
     title: string;
@@ -14,13 +17,6 @@ export interface Props {
 }
 
 const { id, title, sections, copyright } = Astro.props;
-
-const getIcon = async (iconName: string) => {
-    const iconModule = await import("@lucide/astro");
-    return iconModule[iconName];
-};
-
-const CpuIcon = await getIcon("Cpu");
 ---
 
 <footer id={id} class="py-12 px-4 bg-primary text-primary-foreground">
@@ -31,7 +27,7 @@ const CpuIcon = await getIcon("Cpu");
                     <div
                         class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
                     >
-                        <CpuIcon class="w-5 h-5 text-accent-foreground" />
+                        <Icon name="Cpu" class="w-5 h-5 text-accent-foreground" />
                     </div>
                     <h4
                         class="text-2xl font-bold my-0"
@@ -60,18 +56,12 @@ const CpuIcon = await getIcon("Cpu");
                                 section.button ? (
                                     <div>
                                         <p class="mb-4">{item}</p>
-                                        {section.button.href ? (
-                                            <a
-                                                href={section.button.href}
-                                                class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-md transition-colors"
-                                            >
-                                                {section.button.label}
-                                            </a>
-                                        ) : (
-                                            <button class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-md transition-colors">
-                                                {section.button.label}
-                                            </button>
-                                        )}
+                                        <Button
+                                            variant="accent"
+                                            href={section.button.href}
+                                        >
+                                            {section.button.label}
+                                        </Button>
                                     </div>
                                 ) : (
                                     <p>{item}</p>

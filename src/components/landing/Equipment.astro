@@ -1,4 +1,6 @@
 ---
+import Icon from "../ui/Icon.astro";
+
 export interface Props {
     id?: string;
     title: string;
@@ -13,11 +15,6 @@ export interface Props {
 }
 
 const { id, title, description, equipment, backgroundClass } = Astro.props;
-
-const getIcon = async (iconName: string) => {
-    const iconModule = await import("@lucide/astro");
-    return iconModule[iconName];
-};
 ---
 
 <section id={id} class={`py-16 px-4 ${backgroundClass || ""}`}>
@@ -36,12 +33,11 @@ const getIcon = async (iconName: string) => {
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {
-                equipment.map(async (item) => {
-                    const Icon = await getIcon(item.icon);
+                equipment.map((item) => {
                     const cardContent = (
                         <>
                             <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mx-auto mb-4">
-                                <Icon class="w-6 h-6 text-accent-foreground" />
+                                <Icon name={item.icon} class="w-6 h-6 text-accent-foreground" />
                             </div>
                             <h4
                                 class="text-lg font-bold text-card-foreground mb-2 mt-0"

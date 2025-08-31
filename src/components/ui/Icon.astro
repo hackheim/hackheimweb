@@ -1,0 +1,25 @@
+---
+export interface Props {
+    name: string;
+    class?: string;
+    size?: number;
+}
+
+const { name, class: className = "w-5 h-5", size } = Astro.props;
+
+const getIcon = async (iconName: string) => {
+    try {
+        const iconModule = await import("@lucide/astro");
+        return iconModule[iconName];
+    } catch (error) {
+        console.warn(`Icon "${iconName}" not found, falling back to default`);
+        const iconModule = await import("@lucide/astro");
+        return iconModule["HelpCircle"];
+    }
+};
+
+const IconComponent = await getIcon(name);
+const iconClass = size ? `w-${size} h-${size}` : className;
+---
+
+<IconComponent class={iconClass} />

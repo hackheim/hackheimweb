@@ -1,4 +1,7 @@
 ---
+import Icon from "../ui/Icon.astro";
+import Button from "../ui/Button.astro";
+
 export interface Props {
     id?: string;
     title: string;
@@ -33,15 +36,6 @@ const {
     button,
     backgroundClass,
 } = Astro.props;
-
-const getIcon = async (iconName: string) => {
-    const iconModule = await import("@lucide/astro");
-    return iconModule[iconName];
-};
-
-const CalendarIcon = await getIcon("Calendar");
-const MapPinIcon = await getIcon("MapPin");
-const ButtonIcon = button && (await getIcon(button.icon));
 ---
 
 <section id={id} class={`py-16 px-4 ${backgroundClass || ""}`}>
@@ -70,7 +64,7 @@ const ButtonIcon = button && (await getIcon(button.icon));
                 {
                     openDays.map((day) => (
                         <div class="flex items-center justify-center space-x-2 p-4 bg-accent/10 rounded-lg">
-                            <CalendarIcon class="w-6 h-6 text-accent" />
+                            <Icon name="Calendar" class="w-6 h-6 text-accent" />
                             <div>
                                 <div class="font-semibold text-card-foreground">
                                     {day.day}
@@ -90,9 +84,9 @@ const ButtonIcon = button && (await getIcon(button.icon));
 
             {
                 location && (
-                    <div class="mb-6 p-4 bg-accent/5 rounded-lg border border-accent/20 max-w-sm mx-auto">
+                    <div class="p-4 bg-accent/5 rounded-lg border border-accent/20 max-w-sm mx-auto">
                         <div class="flex items-center justify-center space-x-2 mb-2">
-                            <MapPinIcon class="w-5 h-5 text-accent" />
+                            <Icon name="MapPin" class="w-5 h-5 text-accent" />
                             <h5 class="font-semibold text-card-foreground my-0">
                                 Hvor finner du oss
                             </h5>
@@ -118,21 +112,17 @@ const ButtonIcon = button && (await getIcon(button.icon));
             }
 
             {
-                button &&
-                    (button.href ? (
-                        <a
-                            href={button.href}
-                            class="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-md text-lg flex items-center justify-center mx-auto transition-colors"
-                        >
-                            <ButtonIcon class="w-5 h-5 mr-2" />
-                            {button.label}
-                        </a>
-                    ) : (
-                        <button class="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-md text-lg flex items-center justify-center mx-auto transition-colors">
-                            <ButtonIcon class="w-5 h-5 mr-2" />
-                            {button.label}
-                        </button>
-                    ))
+                button && (
+                    <Button
+                        variant="accent"
+                        size="lg"
+                        href={button.href}
+                        icon={button.icon}
+                        class="mt-6 mx-auto"
+                    >
+                        {button.label}
+                    </Button>
+                )
             }
         </div>
     </div>

@@ -1,30 +1,24 @@
 ---
 import { Image } from "astro:assets";
+import Button from "../ui/Button.astro";
 
 export interface Props {
     title: string;
     image: {
-        src: string;
+        src: ImageMetadata;
         alt: string;
         width: number;
         height: number;
     };
     paragraphs: Array<string>;
-    button: {
+    buttons: Array<{
         label: string;
         icon: string;
         href?: string;
-    };
+    }>;
 }
 
-const { title, image, paragraphs, button } = Astro.props;
-
-const getIcon = async (iconName: string) => {
-    const iconModule = await import("@lucide/astro");
-    return iconModule[iconName];
-};
-
-const Icon = await getIcon(button.icon);
+const { title, image, paragraphs, buttons } = Astro.props;
 ---
 
 <section class="py-16 px-4">
@@ -61,20 +55,15 @@ const Icon = await getIcon(button.icon);
                 }
                 <div class="pt-4 flex justify-center md:justify-start">
                     {
-                        button.href ? (
-                            <a
+                        buttons.map((button) => (
+                            <Button
+                                variant="primary"
                                 href={button.href}
-                                class="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md flex items-center transition-colors no-underline"
+                                icon={button.icon}
                             >
-                                <Icon class="w-5 h-5 mr-2" />
                                 {button.label}
-                            </a>
-                        ) : (
-                            <button class="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md flex items-center transition-colors">
-                                <Icon class="w-5 h-5 mr-2" />
-                                {button.label}
-                            </button>
-                        )
+                            </Button>
+                        ))
                     }
                 </div>
             </div>

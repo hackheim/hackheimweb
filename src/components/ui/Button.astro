@@ -1,0 +1,63 @@
+---
+import Icon from "./Icon.astro";
+
+export interface Props {
+    variant?: "primary" | "outline" | "accent" | "ghost";
+    size?: "sm" | "md" | "lg";
+    href?: string;
+    icon?: string;
+    iconPosition?: "left" | "right";
+    class?: string;
+    target?: string;
+    rel?: string;
+}
+
+const {
+    variant = "primary",
+    size = "md",
+    href,
+    icon,
+    iconPosition = "left",
+    class: className = "",
+    target,
+    rel,
+} = Astro.props;
+
+const baseClasses = "inline-flex items-center justify-center transition-colors rounded-md no-underline";
+
+const variantClasses = {
+    primary: "bg-primary hover:bg-primary/90 text-primary-foreground",
+    outline: "border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent border-2",
+    accent: "bg-accent hover:bg-accent/90 text-accent-foreground",
+    ghost: "hover:bg-accent/10 text-foreground hover:text-accent",
+};
+
+const sizeClasses = {
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-4 py-2",
+    lg: "px-6 py-3 text-lg",
+};
+
+const iconSizeClasses = {
+    sm: "w-4 h-4",
+    md: "w-5 h-5", 
+    lg: "w-5 h-5",
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+const iconClass = `${iconSizeClasses[size]} ${iconPosition === "left" ? "mr-2" : "ml-2"}`;
+---
+
+{href ? (
+    <a href={href} class={classes} target={target} rel={rel}>
+        {icon && iconPosition === "left" && <Icon name={icon} class={iconClass} />}
+        <slot />
+        {icon && iconPosition === "right" && <Icon name={icon} class={iconClass} />}
+    </a>
+) : (
+    <button class={classes}>
+        {icon && iconPosition === "left" && <Icon name={icon} class={iconClass} />}
+        <slot />
+        {icon && iconPosition === "right" && <Icon name={icon} class={iconClass} />}
+    </button>
+)}
