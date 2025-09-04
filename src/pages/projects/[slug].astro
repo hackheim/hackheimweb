@@ -98,10 +98,10 @@ function getDifficultyLabel(difficulty: string) {
                             name="User"
                             class="w-6 h-6 mx-auto mb-2 text-accent"
                         />
-                        <p class="text-sm text-muted-foreground mt-0 mb-1">
+                        <p class="text-sm text-muted-foreground mb-1">
                             Forfatter
                         </p>
-                        <p class="font-semibold m-0">{project.data.author}</p>
+                        <p class="font-semibold">{project.data.author}</p>
                     </div>
 
                     <div class="text-center">
@@ -109,10 +109,8 @@ function getDifficultyLabel(difficulty: string) {
                             name="Calendar"
                             class="w-6 h-6 mx-auto mb-2 text-accent"
                         />
-                        <p class="text-sm text-muted-foreground mt-0 mb-1">
-                            Dato
-                        </p>
-                        <p class="font-semibold m-0">
+                        <p class="text-sm text-muted-foreground mb-1">Dato</p>
+                        <p class="font-semibold">
                             {formatDate(project.data.date)}
                         </p>
                     </div>
@@ -122,10 +120,10 @@ function getDifficultyLabel(difficulty: string) {
                             name="Clock"
                             class="w-6 h-6 mx-auto mb-2 text-accent"
                         />
-                        <p class="text-sm text-muted-foreground mt-0 mb-1">
+                        <p class="text-sm text-muted-foreground mb-1">
                             Estimert tid
                         </p>
-                        <p class="font-semibold m-0">
+                        <p class="font-semibold">
                             {project.data.estimatedTime || "Ikke oppgitt"}
                         </p>
                     </div>

@@ -1,0 +1,174 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/landing/Header.astro";
+import Footer from "../../components/landing/Footer.astro";
+import Icon from "../../components/ui/Icon.astro";
+import Button from "../../components/ui/Button.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const newsEntries = await getCollection("news");
+    const publishedNews = newsEntries.filter((entry) => entry.data.published);
+    const sortedNews = publishedNews.sort(
+        (a, b) =>
+            new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+    );
+
+    return paginate(sortedNews, { pageSize: 6 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+function formatDate(date: Date) {
+    return new Date(date).toLocaleDateString("nb-NO", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
+---
+
+<Layout>
+    <div class="min-h-screen">
+        <Header />
+        <main class="py-16 px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold text-foreground mb-4">
+                        Nyheter
+                    </h1>
+                    <p class="text-lg text-muted-foreground">
+                        Hold deg oppdatert på det som skjer hos Hackheim
+                    </p>
+                </div>
+
+                <div class="space-y-8">
+                    {
+                        page.data.map((entry) => (
+                            <article class="bg-card border border-border rounded-lg p-6 hover:shadow-md transition-shadow">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex-1">
+                                        <h2 class="text-2xl font-semibold text-foreground mb-2">
+                                            <a
+                                                href={`/news/${entry.id}`}
+                                                class="hover:text-primary transition-colors"
+                                            >
+                                                {entry.data.title}
+                                            </a>
+                                        </h2>
+                                        <div class="flex items-center text-sm text-muted-foreground mb-3">
+                                            <Icon
+                                                name="Calendar"
+                                                class="w-4 h-4 mr-2"
+                                            />
+                                            <time
+                                                datetime={entry.data.date.toISOString()}
+                                            >
+                                                {formatDate(entry.data.date)}
+                                            </time>
+                                            {entry.data.author && (
+                                                <>
+                                                    <span class="mx-2">•</span>
+                                                    <Icon
+                                                        name="User"
+                                                        class="w-4 h-4 mr-1"
+                                                    />
+                                                    {entry.data.author}
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                    {entry.data.image && (
+                                        <img
+                                            src={entry.data.image}
+                                            alt={entry.data.title}
+                                            class="w-24 h-24 object-cover rounded-lg ml-4"
+                                        />
+                                    )}
+                                </div>
+
+                                <p class="text-muted-foreground mb-4 leading-relaxed">
+                                    {entry.data.excerpt}
+                                </p>
+
+                                <a
+                                    href={`/news/${entry.id}`}
+                                    class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium"
+                                >
+                                    Les mer
+                                    <Icon
+                                        name="ArrowRight"
+                                        class="w-4 h-4 ml-1"
+                                    />
+                                </a>
+                            </article>
+                        ))
+                    }
+                </div>
+
+                <!-- Pagination -->
+                {
+                    (page.url.prev || page.url.next) && (
+                        <div class="flex justify-between items-center mt-12 pt-8 border-t border-border">
+                            <div class="flex-1">
+                                {page.url.prev && (
+                                    <Button
+                                        variant="outline"
+                                        href={page.url.prev}
+                                    >
+                                        <Icon
+                                            name="ArrowLeft"
+                                            class="w-4 h-4 mr-2"
+                                        />
+                                        Forrige
+                                    </Button>
+                                )}
+                            </div>
+
+                            <div class="flex items-center space-x-2 text-sm text-muted-foreground">
+                                <span>
+                                    Side {page.currentPage} av {page.lastPage}
+                                </span>
+                            </div>
+
+                            <div class="flex-1 text-right">
+                                {page.url.next && (
+                                    <Button
+                                        variant="outline"
+                                        href={page.url.next}
+                                    >
+                                        Neste
+                                        <Icon
+                                            name="ArrowRight"
+                                            class="w-4 h-4 ml-2"
+                                        />
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    )
+                }
+
+                {
+                    page.data.length === 0 && (
+                        <div class="text-center py-16">
+                            <Icon
+                                name="Newspaper"
+                                class="w-16 h-16 text-muted-foreground mx-auto mb-4"
+                            />
+                            <h2 class="text-xl font-semibold text-foreground mb-2">
+                                Ingen nyheter ennå
+                            </h2>
+                            <p class="text-muted-foreground">
+                                Vi jobber med å få på plass nyheter. Kom tilbake
+                                senere!
+                            </p>
+                        </div>
+                    )
+                }
+            </div>
+        </main>
+        <Footer />
+    </div>
+</Layout>

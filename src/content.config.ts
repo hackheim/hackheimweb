@@ -32,4 +32,17 @@ export const collections = {
         published: z.boolean().default(true),
       }),
   }),
+  news: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/news" }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        excerpt: z.string(),
+        author: z.string().optional(),
+        date: z.date(),
+        image: image().optional(),
+        tags: z.array(z.string()).optional(),
+        published: z.boolean().default(true),
+      }),
+  }),
 };

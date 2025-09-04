@@ -38,10 +38,10 @@ const {
 } = Astro.props;
 ---
 
-<section id={id} class={`py-16 px-4 ${backgroundClass || ""}`}>
+<section id={id} class={`px-4 ${backgroundClass || ""}`}>
     <div class="container mx-auto max-w-4xl text-center">
         <h3
-            class="text-3xl md:text-4xl font-bold text-primary mb-8 mt-0"
+            class="text-3xl md:text-4xl font-bold text-primary mb-8"
             style="font-family: 'Space Grotesk', sans-serif;"
         >
             {title}
@@ -51,7 +51,7 @@ const {
             class="bg-card border border-border rounded-lg max-w-2xl mx-auto p-6"
         >
             <h4
-                class="text-2xl font-bold text-card-foreground mb-2 mt-0"
+                class="text-2xl font-bold text-card-foreground mb-2"
                 style="font-family: 'Space Grotesk', sans-serif;"
             >
                 {cardTitle}

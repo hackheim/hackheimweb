@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/landing/Header.astro";
 import Hero from "../components/landing/Hero.astro";
+import LatestNews from "../components/landing/LatestNews.astro";
 import About from "../components/landing/About.astro";
 import Equipment from "../components/landing/Equipment.astro";
 import Community from "../components/landing/Community.astro";
@@ -41,145 +42,160 @@ import communityImage from "../assets/people-collaborating-on-electronics-and-la
                 },
             ]}
         />
-        <About
-            id="om-oss"
-            title="Hva er Hackheim?"
-            description="Hackheim er et makerspace i Trondheim, stiftet i 2012 av kreative ildsjeler som ønsket en samlingsplass for likesinnede."
-            cards={[
-                {
-                    title: "For alle teknologiinteresserte",
-                    content:
-                        "Vi er åpne for alle uansett hva slags bakgrunn du kommer fra. Kom innom om du er interessert i 3D-printing, elektronikk, laserskjæring, programmering eller lignende.",
-                    tags: [
-                        "3D-printing",
-                        "Elektronikk",
-                        "Laserskjæring",
-                        "Programmering",
-                    ],
-                },
-                {
-                    title: "Åpne dager",
-                    content:
-                        "Kom innom og si hei! Det er bare å dukke opp på våre åpne dager.",
-                    details: [
-                        { icon: "Calendar", text: "Onsdag og søndag" },
-                        { icon: "Clock", text: "Fra 18:00" },
-                    ],
-                },
-            ]}
-        />
-        <Equipment
-            id="utstyr"
-            title="Vårt utstyr"
-            description="I våre lokaler har vi tilgang til profesjonelt utstyr for alle typer prosjekter"
-            backgroundClass="bg-card/30"
-            equipment={[
-                {
-                    icon: "Cpu",
-                    title: "3D-printere",
-                    description:
-                        "Flere 3D-printere for prototyping og produksjon",
-                    href: "/wiki/welcome/equipment/3d-printer",
-                },
-                {
-                    icon: "Scissors",
-                    title: "Laserkutter",
-                    description:
-                        "Presis kutting og gravering i ulike materialer",
-                    href: "/wiki/welcome/equipment/laser",
-                },
-                {
-                    icon: "Zap",
-                    title: "Loddestasjoner",
-                    description:
-                        "Profesjonelt utstyr for elektronikkprosjekter",
-                },
-                {
-                    icon: "Wrench",
-                    title: "Verksted",
-                    description:
-                        "Komplett verksted med håndverktøy og maskiner",
-                },
-            ]}
-        />
-        <Community
-            title="Et hackerspace - hva er det?"
-            image={{
-                src: communityImage,
-                alt: "Medlemmer som samarbeider om prosjekter",
-                width: 600,
-                height: 256,
-            }}
-            paragraphs={[
-                "Et hackerspace kjennetegnes av medlemmer som kommer sammen for å arbeide med hobbyprosjekter, både hardware- og softwarebasert. Motivasjonen for arbeidet er lysten til å lære noe nytt, lage noe nyttig, eller rett og slett fordi det er tøft!",
-                "Det sentrale i denne typen forening er det å skape noe sammen andre, sosialisere og utveksle kunnskap. Vi ønsker å samle alle teknologiinteresserte under et tak for å utveksle kunnskap og inspirasjon på tvers av fagområder.",
-            ]}
-            buttons={[
-                {
-                    label: "Bli en del av fellesskapet",
-                    icon: "Users",
-                    href: "/wiki/welcome/join",
-                },
-            ]}
-        />
-        <ProjectShowcase
-            id="prosjekter"
-            title="Medlemsprosjekter"
-            description="Se hva våre kreative medlemmer har skapt med tilgang til vårt utstyr og fellesskap"
-            backgroundClass=""
-            maxProjects={3}
-        />
-        <Gallery
-            id="galleri"
-            title="Vårt makerspace"
-            description="Ta en titt inne i lokalene våre og se hvor kreativiteten får blomstre"
-            images={[
-                {
-                    src: heroImage,
-                    alt: "Workshop område med 3D-printere",
-                    title: "3D-printing stasjon",
-                    description:
-                        "Vårt dedikerte område for 3D-printing med flere maskiner",
-                },
-                {
+        <div class="pt-6 pb-16">
+            <LatestNews />
+        </div>
+        <div class="py-16">
+            <About
+                id="om-oss"
+                title="Hva er Hackheim?"
+                description="Hackheim er et makerspace i Trondheim, stiftet i 2012 av kreative ildsjeler som ønsket en samlingsplass for likesinnede."
+                cards={[
+                    {
+                        title: "For alle teknologiinteresserte",
+                        content:
+                            "Vi er åpne for alle uansett hva slags bakgrunn du kommer fra. Kom innom om du er interessert i 3D-printing, elektronikk, laserskjæring, programmering eller lignende.",
+                        tags: [
+                            "3D-printing",
+                            "Elektronikk",
+                            "Laserskjæring",
+                            "Programmering",
+                        ],
+                    },
+                    {
+                        title: "Åpne dager",
+                        content:
+                            "Kom innom og si hei! Det er bare å dukke opp på våre åpne dager.",
+                        details: [
+                            { icon: "Calendar", text: "Onsdag og søndag" },
+                            { icon: "Clock", text: "Fra 18:00" },
+                        ],
+                    },
+                ]}
+            />
+        </div>
+        <div class="py-16 bg-card/30">
+            <Equipment
+                id="utstyr"
+                title="Vårt utstyr"
+                description="I våre lokaler har vi tilgang til profesjonelt utstyr for alle typer prosjekter"
+                backgroundClass=""
+                equipment={[
+                    {
+                        icon: "Cpu",
+                        title: "3D-printere",
+                        description:
+                            "Flere 3D-printere for prototyping og produksjon",
+                        href: "/wiki/welcome/equipment/3d-printer",
+                    },
+                    {
+                        icon: "Scissors",
+                        title: "Laserkutter",
+                        description:
+                            "Presis kutting og gravering i ulike materialer",
+                        href: "/wiki/welcome/equipment/laser",
+                    },
+                    {
+                        icon: "Zap",
+                        title: "Loddestasjoner",
+                        description:
+                            "Profesjonelt utstyr for elektronikkprosjekter",
+                    },
+                    {
+                        icon: "Wrench",
+                        title: "Verksted",
+                        description:
+                            "Komplett verksted med håndverktøy og maskiner",
+                    },
+                ]}
+            />
+        </div>
+        <div class="py-16">
+            <Community
+                title="Et hackerspace - hva er det?"
+                image={{
                     src: communityImage,
-                    alt: "Medlemmer som jobber sammen",
-                    title: "Fellesskap i aksjon",
-                    description:
-                        "Medlemmer som samarbeider om elektronikk og laserkutt-prosjekter",
-                },
-                {
-                    src: heroImage,
-                    alt: "Verkstedområdet",
-                    title: "Hovedverksted",
-                    description:
-                        "Åpent verksted med plass til alle typer prosjekter",
-                },
-            ]}
-            backgroundClass="bg-card/30"
-        />
-        <OpenDays
-            id="apne-dager"
-            title="Kom på besøk!"
-            cardTitle="Åpne dager"
-            cardDescription="Vi har åpne dager hver uke - kom innom og si hei!"
-            backgroundClass="bg-card/30"
-            openDays={[
-                { day: "Onsdag", time: "Fra 18:00" },
-                { day: "Søndag", time: "Fra 18:00" },
-            ]}
-            description="Det er bare å komme innom og si hei! Vi er her for å være en samleplass for alle teknologiinteresserte."
-            location={{
-                address: "Munkegata 58, 7011 Trondheim",
-                details: "Bak baren på Work-Work i Trondheim sentrum",
-                mapUrl: "https://maps.google.com/?q=Work-Work+Trondheim",
-            }}
-            button={{
-                label: "Les mer om medlemskap",
-                icon: "Users",
-                href: "/wiki/welcome/join#medlemskap",
-            }}
-        />
+                    alt: "Medlemmer som samarbeider om prosjekter",
+                    width: 600,
+                    height: 256,
+                }}
+                paragraphs={[
+                    "Et hackerspace kjennetegnes av medlemmer som kommer sammen for å arbeide med hobbyprosjekter, både hardware- og softwarebasert. Motivasjonen for arbeidet er lysten til å lære noe nytt, lage noe nyttig, eller rett og slett fordi det er tøft!",
+                    "Det sentrale i denne typen forening er det å skape noe sammen andre, sosialisere og utveksle kunnskap. Vi ønsker å samle alle teknologiinteresserte under et tak for å utveksle kunnskap og inspirasjon på tvers av fagområder.",
+                ]}
+                buttons={[
+                    {
+                        label: "Bli en del av fellesskapet",
+                        icon: "Users",
+                        href: "/wiki/welcome/join",
+                    },
+                ]}
+            />
+        </div>
+        <div class="py-16">
+            <ProjectShowcase
+                id="prosjekter"
+                title="Medlemsprosjekter"
+                description="Se hva våre kreative medlemmer har skapt med tilgang til vårt utstyr og fellesskap"
+                backgroundClass=""
+                maxProjects={3}
+            />
+        </div>
+        <div class="py-16 bg-card/30">
+            <Gallery
+                id="galleri"
+                title="Vårt makerspace"
+                description="Ta en titt inne i lokalene våre og se hvor kreativiteten får blomstre"
+                images={[
+                    {
+                        src: heroImage,
+                        alt: "Workshop område med 3D-printere",
+                        title: "3D-printing stasjon",
+                        description:
+                            "Vårt dedikerte område for 3D-printing med flere maskiner",
+                    },
+                    {
+                        src: communityImage,
+                        alt: "Medlemmer som jobber sammen",
+                        title: "Fellesskap i aksjon",
+                        description:
+                            "Medlemmer som samarbeider om elektronikk og laserkutt-prosjekter",
+                    },
+                    {
+                        src: heroImage,
+                        alt: "Verkstedområdet",
+                        title: "Hovedverksted",
+                        description:
+                            "Åpent verksted med plass til alle typer prosjekter",
+                    },
+                ]}
+                backgroundClass=""
+            />
+        </div>
+        <div class="pt-16 pb-32 bg-card/30">
+            <OpenDays
+                id="apne-dager"
+                title="Kom på besøk!"
+                cardTitle="Åpne dager"
+                cardDescription="Vi har åpne dager hver uke - kom innom og si hei!"
+                backgroundClass=""
+                openDays={[
+                    { day: "Onsdag", time: "Fra 18:00" },
+                    { day: "Søndag", time: "Fra 18:00" },
+                ]}
+                description="Det er bare å komme innom og si hei! Vi er her for å være en samleplass for alle teknologiinteresserte."
+                location={{
+                    address: "Munkegata 58, 7011 Trondheim",
+                    details: "Bak baren på Work-Work i Trondheim sentrum",
+                    mapUrl: "https://maps.google.com/?q=Work-Work+Trondheim",
+                }}
+                button={{
+                    label: "Les mer om medlemskap",
+                    icon: "Users",
+                    href: "/wiki/welcome/join#medlemskap",
+                }}
+            />
+        </div>
         <Footer />
     </div>
 </Layout>

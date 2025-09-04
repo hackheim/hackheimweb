@@ -40,7 +40,10 @@ const copyright = "© 2024 Hackheim. Stiftet i 2012 av kreative ildsjeler.";
                     <div
                         class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
                     >
-                        <Icon name="Cpu" class="w-5 h-5 text-accent-foreground" />
+                        <Icon
+                            name="Cpu"
+                            class="w-5 h-5 text-accent-foreground"
+                        />
                     </div>
                     <h4
                         class="text-2xl font-bold my-0"
@@ -58,7 +61,7 @@ const copyright = "© 2024 Hackheim. Stiftet i 2012 av kreative ildsjeler.";
                 sections.slice(1).map((section) => (
                     <div>
                         <h5
-                            class="font-semibold mb-4 mt-0"
+                            class="font-semibold mb-4"
                             style="font-family: 'Space Grotesk', sans-serif;"
                         >
                             {section.title}
@@ -69,10 +72,7 @@ const copyright = "© 2024 Hackheim. Stiftet i 2012 av kreative ildsjeler.";
                                 section.button ? (
                                     <div>
                                         <p class="mb-4">{item}</p>
-                                        <Button
-                                            variant="accent"
-                                            href={section.button.href}
-                                        >
+                                        <Button variant="accent">
                                             {section.button.label}
                                         </Button>
                                     </div>

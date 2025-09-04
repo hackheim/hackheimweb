@@ -17,16 +17,18 @@ export interface Props {
 const { id, title, description, images, backgroundClass } = Astro.props;
 ---
 
-<section id={id} class={`py-16 px-4 ${backgroundClass || ""}`}>
+<section id={id} class={`px-4 ${backgroundClass || ""}`}>
     <div class="container mx-auto max-w-6xl">
         <div class="text-center mb-12">
             <h3
-                class="text-3xl md:text-4xl font-bold text-primary mb-4 mt-0"
+                class="text-3xl md:text-4xl font-bold text-primary mb-4"
                 style="font-family: 'Space Grotesk', sans-serif;"
             >
                 {title}
             </h3>
-            <p class="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty">
+            <p
+                class="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty"
+            >
                 {description}
             </p>
         </div>
@@ -46,8 +48,10 @@ const { id, title, description, images, backgroundClass } = Astro.props;
                             />
                         </div>
                         <div class="p-4">
-                            <h4 class="text-lg font-semibold text-card-foreground mb-2 mt-0"
-                                style="font-family: 'Space Grotesk', sans-serif;">
+                            <h4
+                                class="text-lg font-semibold text-card-foreground mb-2"
+                                style="font-family: 'Space Grotesk', sans-serif;"
+                            >
                                 {image.title}
                             </h4>
                             {image.description && (

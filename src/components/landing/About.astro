@@ -19,11 +19,11 @@ export interface Props {
 const { id, title, description, cards } = Astro.props;
 ---
 
-<section id={id} class="py-16 px-4">
+<section id={id} class="px-4">
     <div class="container mx-auto max-w-6xl">
         <div class="text-center mb-12">
             <h3
-                class="text-3xl md:text-4xl font-bold text-primary mb-4 mt-0"
+                class="text-3xl md:text-4xl font-bold text-primary mb-4"
                 style="font-family: 'Space Grotesk', sans-serif;"
             >
                 {title}
@@ -41,7 +41,7 @@ const { id, title, description, cards } = Astro.props;
                     <div>
                         <div class="bg-card border border-border rounded-lg shadow-sm p-6">
                             <h4
-                                class="text-xl font-bold text-card-foreground mb-4 mt-0"
+                                class="text-xl font-bold text-card-foreground mb-4"
                                 style="font-family: 'Space Grotesk', sans-serif;"
                             >
                                 {card.title}
@@ -62,7 +62,10 @@ const { id, title, description, cards } = Astro.props;
                                 <div class="space-y-2">
                                     {card.details.map((detail) => (
                                         <div class="flex items-center space-x-2">
-                                            <Icon name={detail.icon} class="w-5 h-5 text-accent" />
+                                            <Icon
+                                                name={detail.icon}
+                                                class="w-5 h-5 text-accent"
+                                            />
                                             <span class="text-card-foreground">
                                                 {detail.text}
                                             </span>

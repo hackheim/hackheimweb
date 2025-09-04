@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+
+// Get the latest published news post
+const allNews = await getCollection("news", ({ data }) => data.published);
+const latestNews = allNews.sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+)[0];
+
+// If no news available, don't render anything
+if (!latestNews) {
+    return null;
+}
+
+const { data: news, id } = latestNews;
+---
+
+{
+    latestNews && (
+        <section class="px-4">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center">
+                    <p class="text-sm text-muted-foreground mb-1">
+                        Siste nytt:
+                    </p>
+                    <a
+                        href={`/news/${id}`}
+                        class="text-lg font-semibold text-primary hover:text-primary/80 transition-colors underline decoration-2 underline-offset-4"
+                        style="font-family: 'Space Grotesk', sans-serif;"
+                    >
+                        {news.title}
+                    </a>
+                </div>
+            </div>
+        </section>
+    )
+}
