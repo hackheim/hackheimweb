@@ -8,13 +8,22 @@ import Button from "../../components/ui/Button.astro";
 
 export async function getStaticPaths() {
     const newsEntries = await getCollection("news");
-    return newsEntries.map((entry) => ({
+    const sortedEntries = newsEntries.sort(
+        (a, b) =>
+            new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+    );
+
+    return sortedEntries.map((entry, index) => ({
         params: { slug: entry.id },
-        props: { entry },
+        props: {
+            entry,
+            prevEntry: sortedEntries[index + 1] || null,
+            nextEntry: sortedEntries[index - 1] || null,
+        },
     }));
 }
 
-const { entry } = Astro.props;
+const { entry, prevEntry, nextEntry } = Astro.props;
 const { Content } = await render(entry);
 
 function formatDate(date: Date) {
@@ -38,7 +47,7 @@ function formatDate(date: Date) {
                     </Button>
 
                     <article
-                        class="bg-card border border-border rounded-lg p-8"
+                        class="bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-10"
                     >
                         <header class="mb-8">
                             {
@@ -83,6 +92,58 @@ function formatDate(date: Date) {
                             <Content />
                         </div>
                     </article>
+
+                    <nav class="mt-8 flex justify-between items-center">
+                        {
+                            prevEntry ? (
+                                <Button
+                                    variant="ghost"
+                                    href={`/news/${prevEntry.id}`}
+                                    class="flex items-center"
+                                >
+                                    <Icon
+                                        name="ArrowLeft"
+                                        class="w-4 h-4 mr-2"
+                                    />
+                                    <div class="text-left">
+                                        <div class="text-xs text-muted-foreground">
+                                            Forrige
+                                        </div>
+                                        <div class="font-medium">
+                                            {prevEntry.data.title}
+                                        </div>
+                                    </div>
+                                </Button>
+                            ) : (
+                                <div />
+                            )
+                        }
+
+                        {
+                            nextEntry ? (
+                                <Button
+                                    variant="ghost"
+                                    href={`/news/${nextEntry.id}`}
+                                    class="flex items-center text-right"
+                                >
+                                    <div class="text-right">
+                                        <div class="text-xs text-muted-foreground">
+                                            Neste
+                                        </div>
+                                        <div class="font-medium">
+                                            {nextEntry.data.title}
+                                        </div>
+                                    </div>
+                                    <Icon
+                                        name="ArrowRight"
+                                        class="w-4 h-4 ml-2"
+                                    />
+                                </Button>
+                            ) : (
+                                <div />
+                            )
+                        }
+                    </nav>
                 </div>
             </div>
         </main>

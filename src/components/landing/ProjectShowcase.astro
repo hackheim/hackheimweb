@@ -69,7 +69,7 @@ function getDifficultyLabel(difficulty: string) {
         {displayProjects.length > 0 ? (
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {displayProjects.map(project => (
-                    <article class="bg-card border rounded-lg overflow-hidden hover:shadow-lg transition-shadow group flex flex-col">
+                    <a href={`/projects/${project.id}`} class="block bg-card border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow group flex flex-col no-underline">
                         {project.data.coverImage && (
                             <div class="aspect-video overflow-hidden">
                                 <Image
@@ -86,15 +86,10 @@ function getDifficultyLabel(difficulty: string) {
 
                         <div class="p-6 flex flex-col justify-between min-h-0 flex-1">
                             <div>
-                                <div class="flex flex-wrap items-center gap-2 mb-3">
-                                    <span class="px-2 py-1 bg-primary/10 text-primary rounded text-sm font-medium">
-                                        {project.data.type === 'tutorial' ? '📋 Tutorial' : '🎨 Showcase'}
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                                        {project.data.type === 'tutorial' ? 'Tutorial' : 'Showcase'}
                                     </span>
-                                    {project.data.tags.slice(0, 3).map(tag => (
-                                        <span class="px-2 py-1 bg-accent/20 text-accent-foreground rounded text-sm">
-                                            {tag}
-                                        </span>
-                                    ))}
                                     {project.data.type === 'tutorial' && (
                                         <span class={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(project.data.difficulty)}`}>
                                             {getDifficultyLabel(project.data.difficulty)}
@@ -102,27 +97,35 @@ function getDifficultyLabel(difficulty: string) {
                                     )}
                                 </div>
 
-                                <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
-                                    <a href={`/projects/${project.id}`} class="block">
-                                        {project.data.title}
-                                    </a>
-                                </h3>
+                                <h4 class="text-lg font-bold text-card-foreground mb-2 group-hover:text-primary transition-colors" style="font-family: 'Space Grotesk', sans-serif;">
+                                    {project.data.title}
+                                </h4>
 
                                 <p class="text-muted-foreground mb-4 line-clamp-3">
                                     {project.data.description}
                                 </p>
+
+                                <!--
+                                {project.data.tags.length > 0 && (
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        {project.data.tags.slice(0, 2).map(tag => (
+                                            <span class="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                                -->
                             </div>
 
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center text-sm text-muted-foreground">
-                                    <Icon name="User" class="w-4 h-4 mr-1" />
-                                    <span class="mr-3">{project.data.author}</span>
-                                    <Icon name="Calendar" class="w-4 h-4 mr-1" />
-                                    <span>{formatDate(project.data.date)}</span>
-                                </div>
+                            <div class="flex items-center text-sm text-muted-foreground">
+                                <Icon name="User" class="w-4 h-4 mr-1" />
+                                <span class="mr-3">{project.data.author}</span>
+                                <Icon name="Calendar" class="w-4 h-4 mr-1" />
+                                <span>{formatDate(project.data.date)}</span>
                             </div>
                         </div>
-                    </article>
+                    </a>
                 ))}
             </div>
         ) : (
@@ -159,6 +162,13 @@ function getDifficultyLabel(difficulty: string) {
 </section>
 
 <style>
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
     .line-clamp-3 {
         display: -webkit-box;
         -webkit-line-clamp: 3;

@@ -43,13 +43,23 @@ function formatDate(date: Date) {
                     </p>
                 </div>
 
-                <div class="space-y-8">
+                <div class="space-y-6">
                     {
                         page.data.map((entry) => (
-                            <article class="bg-card border border-border rounded-lg p-6 hover:shadow-md transition-shadow">
-                                <div class="flex items-start justify-between mb-4">
-                                    <div class="flex-1">
-                                        <h2 class="text-2xl font-semibold text-foreground mb-2">
+                            <article class="bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-8">
+                                {entry.data.image && (
+                                    <div class="mb-6">
+                                        <img
+                                            src={entry.data.image}
+                                            alt={entry.data.title}
+                                            class="w-full h-48 object-cover rounded-lg"
+                                        />
+                                    </div>
+                                )}
+
+                                <div class="space-y-4">
+                                    <div>
+                                        <h2 class="text-2xl font-bold text-foreground mb-3">
                                             <a
                                                 href={`/news/${entry.id}`}
                                                 class="hover:text-primary transition-colors"
@@ -57,7 +67,7 @@ function formatDate(date: Date) {
                                                 {entry.data.title}
                                             </a>
                                         </h2>
-                                        <div class="flex items-center text-sm text-muted-foreground mb-3">
+                                        <div class="flex items-center text-sm text-muted-foreground/80 mb-4">
                                             <Icon
                                                 name="Calendar"
                                                 class="w-4 h-4 mr-2"
@@ -69,7 +79,7 @@ function formatDate(date: Date) {
                                             </time>
                                             {entry.data.author && (
                                                 <>
-                                                    <span class="mx-2">•</span>
+                                                    <span class="mx-3">•</span>
                                                     <Icon
                                                         name="User"
                                                         class="w-4 h-4 mr-1"
@@ -79,29 +89,22 @@ function formatDate(date: Date) {
                                             )}
                                         </div>
                                     </div>
-                                    {entry.data.image && (
-                                        <img
-                                            src={entry.data.image}
-                                            alt={entry.data.title}
-                                            class="w-24 h-24 object-cover rounded-lg ml-4"
+
+                                    <p class="text-muted-foreground mb-6 leading-relaxed text-base">
+                                        {entry.data.excerpt}
+                                    </p>
+
+                                    <a
+                                        href={`/news/${entry.id}`}
+                                        class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-semibold text-sm tracking-wide"
+                                    >
+                                        Les mer
+                                        <Icon
+                                            name="ArrowRight"
+                                            class="w-4 h-4 ml-2"
                                         />
-                                    )}
+                                    </a>
                                 </div>
-
-                                <p class="text-muted-foreground mb-4 leading-relaxed">
-                                    {entry.data.excerpt}
-                                </p>
-
-                                <a
-                                    href={`/news/${entry.id}`}
-                                    class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium"
-                                >
-                                    Les mer
-                                    <Icon
-                                        name="ArrowRight"
-                                        class="w-4 h-4 ml-1"
-                                    />
-                                </a>
                             </article>
                         ))
                     }

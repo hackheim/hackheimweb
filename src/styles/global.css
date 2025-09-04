@@ -159,4 +159,20 @@
     h6 {
         @apply m-0;
     }
+
+    /* Restore heading margins in prose blocks */
+    .prose h1 {
+        @apply mt-8 mb-4 first:mt-0;
+    }
+    .prose h2 {
+        @apply mt-6 mb-3 first:mt-0;
+    }
+    .prose h3 {
+        @apply mt-5 mb-3 first:mt-0;
+    }
+    .prose h4,
+    .prose h5,
+    .prose h6 {
+        @apply mt-4 mb-2 first:mt-0;
+    }
 }

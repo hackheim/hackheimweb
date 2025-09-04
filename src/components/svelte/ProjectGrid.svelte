@@ -75,7 +75,7 @@
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
     {#each filteredProjects as project}
         <article
-            class="bg-card border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+            class="bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden"
         >
             {#if project.data.coverImage}
                 <div
@@ -84,13 +84,13 @@
                     <img
                         src={project.data.coverImage}
                         alt={project.data.title}
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        class="w-full h-full object-cover"
                         style="font-size: 0.875rem; text-align: center; color: var(--muted-foreground); padding: 2rem;"
                     />
                 </div>
             {/if}
 
-            <div class="p-4">
+            <div class="p-6">
                 <div class="flex flex-wrap items-center gap-1 mb-3">
                     <span
                         class="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-medium"
@@ -117,16 +117,16 @@
                     {/if}
                 </div>
 
-                <h3 class="text-lg font-bold mb-2 line-clamp-2">
+                <h3 class="text-lg font-bold mb-3 line-clamp-2">
                     <a
                         href="/projects/{project.id}"
-                        class="hover:text-accent transition-colors"
+                        class="hover:text-primary transition-colors"
                     >
                         {project.data.title}
                     </a>
                 </h3>
 
-                <p class="text-muted-foreground text-sm mb-4 line-clamp-3">
+                <p class="text-muted-foreground text-sm mb-6 line-clamp-3 leading-relaxed">
                     {project.data.description}
                 </p>
 

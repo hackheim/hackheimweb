@@ -62,7 +62,7 @@ function getDifficultyLabel(difficulty: string) {
 
         <div class="container mx-auto px-4 py-8 max-w-4xl">
             <!-- Header -->
-            <div class="mb-8">
+            <div class="mb-4">
                 <Button href="/projects" variant="ghost" class="mb-4">
                     <Icon name="ArrowLeft" class="w-4 h-4 mr-2" />
                     Tilbake til prosjekter
@@ -71,7 +71,7 @@ function getDifficultyLabel(difficulty: string) {
                 <div class="flex flex-wrap items-center gap-2 mb-4">
                     {
                         project.data.tags.map((tag: string) => (
-                            <span class="px-3 py-1 bg-accent/20 text-accent-foreground rounded-full text-sm font-medium">
+                            <span class="px-2 py-1 bg-accent/20 text-accent-foreground rounded-full text-xs font-medium">
                                 {tag}
                             </span>
                         ))
@@ -79,75 +79,73 @@ function getDifficultyLabel(difficulty: string) {
                 </div>
 
                 <h1
-                    class="text-4xl font-bold mb-4 text-foreground"
+                    class="text-3xl font-bold mb-3 text-foreground"
                     style="font-family: 'Space Grotesk', sans-serif;"
                 >
                     {project.data.title}
                 </h1>
 
-                <p class="text-xl text-muted-foreground mb-6">
+                <p class="text-lg text-muted-foreground mb-6">
                     {project.data.description}
                 </p>
 
-                <!-- Project Meta -->
+                <!-- Compact meta row -->
                 <div
-                    class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-card rounded-lg border"
+                    class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6"
                 >
-                    <div class="text-center">
-                        <Icon
-                            name="User"
-                            class="w-6 h-6 mx-auto mb-2 text-accent"
-                        />
-                        <p class="text-sm text-muted-foreground mb-1">
-                            Forfatter
-                        </p>
-                        <p class="font-semibold">{project.data.author}</p>
+                    <div class="flex items-center">
+                        <Icon name="User" class="w-4 h-4 mr-1" />
+                        <span>{project.data.author}</span>
                     </div>
-
-                    <div class="text-center">
-                        <Icon
-                            name="Calendar"
-                            class="w-6 h-6 mx-auto mb-2 text-accent"
-                        />
-                        <p class="text-sm text-muted-foreground mb-1">Dato</p>
-                        <p class="font-semibold">
-                            {formatDate(project.data.date)}
-                        </p>
+                    <div class="flex items-center">
+                        <Icon name="Calendar" class="w-4 h-4 mr-1" />
+                        <span>{formatDate(project.data.date)}</span>
                     </div>
-
-                    <div class="text-center">
-                        <Icon
-                            name="Clock"
-                            class="w-6 h-6 mx-auto mb-2 text-accent"
-                        />
-                        <p class="text-sm text-muted-foreground mb-1">
-                            Estimert tid
-                        </p>
-                        <p class="font-semibold">
-                            {project.data.estimatedTime || "Ikke oppgitt"}
-                        </p>
-                    </div>
-
-                    <div class="text-center">
-                        <div class="space-y-2">
-                            <div
-                                class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(project.data.difficulty)}`}
-                            >
-                                {getDifficultyLabel(project.data.difficulty)}
+                    {
+                        project.data.estimatedTime && (
+                            <div class="flex items-center">
+                                <Icon name="Clock" class="w-4 h-4 mr-1" />
+                                <span>{project.data.estimatedTime}</span>
                             </div>
-                            <div class="text-xs text-muted-foreground">
-                                {
-                                    project.data.type === "tutorial"
-                                        ? "📋 Tutorial"
-                                        : "🎨 Showcase"
-                                }
-                            </div>
-                        </div>
+                        )
+                    }
+                    <div class="flex items-center gap-2">
+                        <span
+                            class={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(project.data.difficulty)}`}
+                        >
+                            {getDifficultyLabel(project.data.difficulty)}
+                        </span>
+                        <span class="text-xs">
+                            {
+                                project.data.type === "tutorial"
+                                    ? "📋 Tutorial"
+                                    : "🎨 Showcase"
+                            }
+                        </span>
                     </div>
                 </div>
 
+                <!-- Cover Image -->
+                {
+                    project.data.coverImage && (
+                        <div class="mb-4">
+                            <Image
+                                src={project.data.coverImage}
+                                alt={project.data.title}
+                                width={800}
+                                height={300}
+                                fit="cover"
+                                format="webp"
+                                quality={85}
+                                class="w-full rounded-lg"
+                                style="font-size: 1rem; text-align: center; color: var(--muted-foreground);"
+                            />
+                        </div>
+                    )
+                }
+
                 <!-- Action buttons -->
-                <div class="flex flex-wrap gap-4 mt-6">
+                <div class="flex flex-wrap gap-3 mb-5">
                     {
                         project.data.githubUrl && (
                             <Button
@@ -191,27 +189,8 @@ function getDifficultyLabel(difficulty: string) {
                 </div>
             </div>
 
-            <!-- Cover Image -->
-            {
-                project.data.coverImage && (
-                    <div class="mb-8 flex items-center justify-center min-h-[400px]">
-                        <Image
-                            src={project.data.coverImage}
-                            alt={project.data.title}
-                            width={800}
-                            height={400}
-                            fit="cover"
-                            format="webp"
-                            quality={85}
-                            class="w-full rounded-lg shadow-lg"
-                            style="font-size: 1rem; text-align: center; color: var(--muted-foreground);"
-                        />
-                    </div>
-                )
-            }
-
             <!-- Content -->
-            <div class="prose prose-lg max-w-none mb-12">
+            <div class="prose prose-lg max-w-none mb-10">
                 <Content />
             </div>
 
@@ -229,7 +208,7 @@ function getDifficultyLabel(difficulty: string) {
 
                             <div class="grid md:grid-cols-2 gap-6">
                                 {project.data.materials && (
-                                    <div class="bg-card p-6 rounded-lg border">
+                                    <div class="bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-8">
                                         <h3 class="text-lg font-semibold mb-4 flex items-center">
                                             <Icon
                                                 name="Package"
@@ -254,7 +233,7 @@ function getDifficultyLabel(difficulty: string) {
                                 )}
 
                                 {project.data.tools && (
-                                    <div class="bg-card p-6 rounded-lg border">
+                                    <div class="bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-8">
                                         <h3 class="text-lg font-semibold mb-4 flex items-center">
                                             <Icon
                                                 name="Wrench"
@@ -283,7 +262,9 @@ function getDifficultyLabel(difficulty: string) {
             }
 
             <!-- CTA Section -->
-            <div class="text-center bg-card p-8 rounded-lg border">
+            <div
+                class="text-center bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-10"
+            >
                 {
                     project.data.type === "tutorial" ? (
                         <>
