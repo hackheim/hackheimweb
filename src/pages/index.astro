@@ -11,8 +11,11 @@ import Gallery from "../components/landing/Gallery.astro";
 import OpenDays from "../components/landing/OpenDays.astro";
 import Footer from "../components/landing/Footer.astro";
 
-import heroImage from "../assets/hackerspace-workshop-with-people-using-3d-printers.png";
-import communityImage from "../assets/people-collaborating-on-electronics-and-laser-cutt.png";
+
+import heroImage from "../assets/sparkly.jpg";
+import communityImage from "../assets/folk.jpg";
+import printersImage from "../assets/printers.jpg";
+import toolsImage from "../assets/tools.jpg";
 ---
 
 <Layout>
@@ -114,7 +117,7 @@ import communityImage from "../assets/people-collaborating-on-electronics-and-la
             <Community
                 title="Et hackerspace - hva er det?"
                 image={{
-                    src: communityImage,
+                    src: toolsImage,
                     alt: "Medlemmer som samarbeider om prosjekter",
                     width: 600,
                     height: 256,
@@ -148,7 +151,7 @@ import communityImage from "../assets/people-collaborating-on-electronics-and-la
                 description="Ta en titt inne i lokalene våre og se hvor kreativiteten får blomstre"
                 images={[
                     {
-                        src: heroImage,
+                        src: printersImage,
                         alt: "Workshop område med 3D-printere",
                         title: "3D-printing stasjon",
                         description:
