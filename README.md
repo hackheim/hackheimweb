@@ -1,49 +1,123 @@
-# Starlight Starter Kit: Basics
+# Hackheim Web
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+The official website for Hackheim. This site serves as both a public-facing website and documentation platform, built with Astro and Starlight.
 
-```
-pnpm create astro@latest -- --template starlight
-```
+## 🏗️ Tech Stack
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Framework**: [Astro](https://astro.build/) with Starlight for documentation
+- **UI Components**: [Svelte](https://svelte.dev/)
+- **Styling**: [TailwindCSS](https://tailwindcss.com/)
+- **Content**: Markdown/MDX with content collections
+- **Deployment**: Cloudflare Pages
+- **Package Manager**: pnpm
 
-## 🚀 Project Structure
+## 🚀 Getting Started
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+### Prerequisites
+
+- Node.js (version 18 or higher)
+- pnpm (recommended package manager)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/hackheim/hackheimweb.git
+   cd hackheim-web
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+The site will be available at `http://localhost:4321`
+
+## 📁 Project Structure
 
 ```
 .
-├── public/
+├── public/                 # Static assets (favicons, images, etc.)
 ├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+│   ├── assets/            # Build-time assets (logos, etc.)
+│   ├── components/        # Reusable components
+│   │   └── starlight/     # Custom Starlight components
+│   ├── content/           # Content collections
+│   │   ├── docs/          # Documentation pages
+│   │   ├── news/          # News articles
+│   │   ├── pages/         # General pages
+│   │   └── projects/      # Project showcases
+│   ├── layouts/           # Page layouts
+│   ├── pages/             # Route pages
+│   │   ├── index.astro    # Homepage
+│   │   ├── news/          # News listing pages
+│   │   └── projects/      # Project listing pages
+│   ├── styles/            # Global styles
+│   └── content.config.ts  # Content collection schemas
+├── astro.config.mjs       # Astro configuration
+├── wrangler.toml          # Cloudflare deployment config
+└── package.json
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## 📝 Content Management
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+Content is organized into collections defined in `src/content.config.ts`:
 
-Static assets, like favicons, can be placed in the `public/` directory.
+- **docs**: Documentation pages (Starlight integration)
+- **news**: News articles and announcements
+- **projects**: Project showcases and tutorials
+- **pages**: General website pages
 
-## 🧞 Commands
+### Adding Content
 
-All commands are run from the root of the project, from a terminal:
+1. **Documentation**: Add `.md` files to `src/content/docs/`
+2. **News**: Add `.md` files to `src/content/news/` with frontmatter
+3. **Projects**: Add `.md` files to `src/content/projects/` with required schema
+4. **Pages**: Add `.md` files to `src/content/pages/`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## 🛠️ Development Commands
 
-## 👀 Want to learn more?
+| Command                | Description                                    |
+| :--------------------- | :--------------------------------------------- |
+| `pnpm dev`            | Start development server                        |
+| `pnpm build`          | Build for production                           |
+| `pnpm preview`        | Preview production build locally               |
+| `pnpm devdeploy`      | Build and deploy to Cloudflare                |
+| `pnpm astro ...`      | Run Astro CLI commands                         |
 
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+## 🌍 Internationalization
+
+The site supports both Norwegian (default) and English:
+
+- Default locale: Norwegian (`nb-NO`)
+- Alternate locale: English (`en`)
+
+Content can be localized by adding language suffixes to files or using Starlight's built-in i18n features.
+
+## 🚀 Deployment
+
+The site is deployed to Cloudflare Pages using Wrangler:
+
+1. **Development deployment**: `pnpm devdeploy`
+2. **Production**: Automatic deployment via GitHub integration
+
+Configuration is managed through `wrangler.toml`.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test locally with `pnpm dev`
+5. Build to ensure no errors: `pnpm build`
+6. Submit a pull request
+
+## 📞 Contact
+
+- GitHub: [hackheim/hackheimweb](https://github.com/hackheim/hackheimweb)
+- Website: [hackheim.no](https://hackheim.no)
