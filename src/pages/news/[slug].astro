@@ -9,7 +9,8 @@ import ZoomImage from "@components/ui/ZoomImage.astro";
 
 export async function getStaticPaths() {
     const newsEntries = await getCollection("news");
-    const sortedEntries = newsEntries.sort(
+    const publishedNews = newsEntries.filter((entry) => entry.data.published);
+    const sortedEntries = publishedNews.sort(
         (a, b) =>
             new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
     );
