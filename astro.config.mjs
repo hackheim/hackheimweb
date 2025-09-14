@@ -53,8 +53,12 @@ export default defineConfig({
                   slug: "wiki/welcome/equipment/laser",
                 },
                 {
-                  label: "Materialer for Laserkutter",
+                  label: "Trygge/Utrygge Materialer for Laser",
                   slug: "wiki/welcome/equipment/laser-materials",
+                },
+                {
+                  label: "Våre materialer for laserkutting",
+                  slug: "wiki/welcome/equipment/materialer",
                 },
               ],
             },
