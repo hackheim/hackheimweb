@@ -5,7 +5,7 @@ author: "Hackheim Styre"
 date: 2024-03-20
 #image: "/images/news/prusa-mk4.jpg"
 tags: ["3D-printing", "utstyr", "nyhet"]
-published: true
+published: false
 ---
 
 Vi er glade for å kunne meddele at Hackheim har investert i en ny **Prusa MK4 3D-printer**! Denne printeren representerer det nyeste innen 3D-printing teknologi og vil være tilgjengelig for alle medlemmer.

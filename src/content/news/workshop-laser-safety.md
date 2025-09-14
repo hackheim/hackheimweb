@@ -4,7 +4,7 @@ excerpt: "Obligatorisk sikkerhetskurs for alle som ønsker å bruke laserkuttere
 author: "Lars Sikkerhet"
 date: 2024-03-15
 tags: ["workshop", "laserkutter", "sikkerhet", "kurs"]
-published: true
+published: false
 ---
 
 Vi arrangerer et obligatorisk sikkerhetskurs for laserkutteren lørdag 23. mars kl. 14:00. Dette kurset er påkrevd for alle som ønsker å få tilgang til laserkutteren.

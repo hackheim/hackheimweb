@@ -8,6 +8,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 import svelte from "@astrojs/svelte";
 
+import favicons from "astro-favicons";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -95,6 +97,13 @@ export default defineConfig({
       customCss: ["./src/styles/global.css"],
     }),
     svelte(),
+    favicons({
+      input: {
+        favicons: ["public/favicon.svg"],
+      },
+      name: "Hackheim - Makerspace i Trondheim",
+      short_name: "Hackheim",
+    }),
   ],
 
   adapter: cloudflare(),

@@ -5,6 +5,7 @@ import Header from "../../components/landing/Header.astro";
 import Footer from "../../components/landing/Footer.astro";
 import Icon from "../../components/ui/Icon.astro";
 import Button from "../../components/ui/Button.astro";
+import ZoomImage from "@components/ui/ZoomImage.astro";
 
 export async function getStaticPaths() {
     const newsEntries = await getCollection("news");
@@ -50,19 +51,20 @@ function formatDate(date: Date) {
                         class="bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-10"
                     >
                         <header class="mb-8">
-                            {
-                                entry.data.image && (
-                                    <img
-                                        src={entry.data.image}
-                                        alt={entry.data.title}
-                                        class="w-full h-64 object-cover rounded-lg mb-6"
-                                    />
-                                )
-                            }
-
                             <h1 class="text-4xl font-bold text-foreground mb-4">
                                 {entry.data.title}
                             </h1>
+
+                            {
+                                entry.data.image && (
+                                    <ZoomImage
+                                        src={entry.data.image}
+                                        alt={entry.data.title}
+                                        width={900}
+                                        class="rounded-lg mb-6"
+                                    />
+                                )
+                            }
 
                             <div
                                 class="flex items-center text-muted-foreground"

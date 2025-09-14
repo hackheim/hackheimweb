@@ -1,14 +1,17 @@
 ---
 import "../styles/global.css";
+import { localizedHTML as favicons } from "astro-favicons/middleware";
+
+// <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+// <meta name="generator" content={Astro.generator} />
 ---
 
 <!doctype html>
 <html lang="nb-no">
     <head>
         <meta charset="UTF-8" />
+        <Fragment set:html={favicons(Astro.currentLocale)} />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link

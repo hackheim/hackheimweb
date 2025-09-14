@@ -1,0 +1,66 @@
+---
+import ZoomImageSvelte from "../svelte/ZoomImage.svelte";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+export interface Props {
+    src: ImageMetadata;
+    alt: string;
+    class?: string;
+    zoomMargin?: number;
+    width?: number;
+    height?: number;
+    loading?: "lazy" | "eager";
+    decoding?: "async" | "sync" | "auto";
+    attribution?: string;
+}
+
+const {
+    src,
+    alt,
+    class: className = "",
+    zoomMargin = 0,
+    width,
+    height,
+    loading,
+    decoding,
+    attribution,
+} = Astro.props;
+
+// Generate optimized image for display
+const optimizedImage = await getImage({
+    src,
+    width: width,
+    height: height,
+    format: "webp",
+    quality: 80,
+});
+
+// Generate high quality image for zoom
+const zoomOptimizedImage = await getImage({
+    src,
+    format: "webp",
+    quality: 95,
+});
+---
+
+<ZoomImageSvelte
+    client:idle
+    zoomSrc={zoomOptimizedImage.src}
+    zoomMargin={zoomMargin}
+    loading={loading}
+    decoding={decoding}
+    attribution={attribution}
+    zoom_img={{
+        alt: alt,
+        src: zoomOptimizedImage.src,
+    }}
+>
+    <img
+        class:list={["object-contain h-auto w-auto max-w-full", className]}
+        alt={alt}
+        src={optimizedImage.src}
+        width={optimizedImage.attributes.width}
+        height={optimizedImage.attributes.height}
+    />
+</ZoomImageSvelte>
