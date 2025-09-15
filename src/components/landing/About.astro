@@ -16,7 +16,7 @@ export interface Props {
     }>;
 }
 
-const { id, title, description, cards } = Astro.props;
+const { id, title, description, callout, cards } = Astro.props;
 ---
 
 <section id={id} class="px-4">
@@ -29,9 +29,9 @@ const { id, title, description, cards } = Astro.props;
                 {title}
             </h3>
             <p
-                class="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty"
+                class="text-lg text-muted-foreground max-w-5xl mx-auto text-pretty"
             >
-                {description}
+                {callout && <><strong>{callout}</strong> </>}{description}
             </p>
         </div>
 
