@@ -1,0 +1,176 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+    id?: string;
+    title: string;
+    description?: string;
+    sponsorTiers?: Array<{
+        tierName: string;
+        sponsors: Array<{
+            name: string;
+            logo?: ImageMetadata;
+            logoAlt?: string;
+            url?: string;
+            description?: string;
+        }>;
+        logoSize?: "sm" | "md" | "lg";
+    }>;
+    sponsors?: Array<{
+        name: string;
+        logo?: ImageMetadata;
+        logoAlt?: string;
+        url?: string;
+        description?: string;
+    }>;
+    backgroundClass?: string;
+}
+
+const { id, title, description, sponsorTiers, sponsors, backgroundClass } =
+    Astro.props;
+
+const logoSizeClasses = {
+    sm: "max-h-12",
+    md: "max-h-16",
+    lg: "max-h-20",
+};
+---
+
+<section id={id} class={`px-4 ${backgroundClass || ""}`}>
+    <div class="container mx-auto max-w-6xl">
+        <div class="text-center mb-12">
+            <h3
+                class="text-3xl md:text-4xl font-bold text-primary mb-4"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                {title}
+            </h3>
+            {
+                description && (
+                    <p class="text-lg text-muted-foreground text-pretty">
+                        {description}
+                    </p>
+                )
+            }
+        </div>
+
+        {
+            sponsorTiers ? (
+                <div class="space-y-12">
+                    {sponsorTiers.map((tier) => (
+                        <div>
+                            <h4 class="text-xl font-semibold text-center text-muted-foreground mb-8">
+                                {tier.tierName}
+                            </h4>
+                            <div class="flex flex-wrap justify-center items-center gap-8">
+                                {tier.sponsors.map((sponsor) => {
+                                    const logoSizeClass =
+                                        logoSizeClasses[tier.logoSize || "md"];
+                                    const sponsorContent = (
+                                        <div class="flex flex-col items-center justify-center p-6 min-w-48">
+                                            {sponsor.logo ? (
+                                                <Image
+                                                    width={200}
+                                                    src={sponsor.logo}
+                                                    alt={
+                                                        sponsor.logoAlt ||
+                                                        `${sponsor.name} logo`
+                                                    }
+                                                    class={`${logoSizeClass} w-auto object-contain mb-2 filter grayscale hover:grayscale-0 transition-all duration-200`}
+                                                />
+                                            ) : (
+                                                <div class="text-center">
+                                                    <div class="text-lg font-semibold text-foreground mb-1">
+                                                        {sponsor.name}
+                                                    </div>
+                                                    {sponsor.description && (
+                                                        <div class="text-sm text-muted-foreground">
+                                                            {
+                                                                sponsor.description
+                                                            }
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                            {sponsor.logo && (
+                                                <div class="text-sm font-medium text-center text-muted-foreground">
+                                                    {sponsor.name}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+
+                                    if (sponsor.url) {
+                                        return (
+                                            <a
+                                                href={sponsor.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="block text-inherit no-underline"
+                                            >
+                                                {sponsorContent}
+                                            </a>
+                                        );
+                                    } else {
+                                        return sponsorContent;
+                                    }
+                                })}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : sponsors ? (
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    {sponsors.map((sponsor) => {
+                        const sponsorContent = (
+                            <div class="flex flex-col items-center justify-center p-6 min-w-48">
+                                {sponsor.logo ? (
+                                    <Image
+                                        width={200}
+                                        src={sponsor.logo}
+                                        alt={
+                                            sponsor.logoAlt ||
+                                            `${sponsor.name} logo`
+                                        }
+                                        class={`${logoSizeClasses.md} w-auto object-contain mb-2 filter grayscale hover:grayscale-0 transition-all duration-200`}
+                                    />
+                                ) : (
+                                    <div class="text-center">
+                                        <div class="text-lg font-semibold text-foreground mb-1">
+                                            {sponsor.name}
+                                        </div>
+                                        {sponsor.description && (
+                                            <div class="text-sm text-muted-foreground">
+                                                {sponsor.description}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                                {sponsor.logo && (
+                                    <div class="text-sm font-medium text-center text-muted-foreground">
+                                        {sponsor.name}
+                                    </div>
+                                )}
+                            </div>
+                        );
+
+                        if (sponsor.url) {
+                            return (
+                                <a
+                                    href={sponsor.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="block text-inherit no-underline"
+                                >
+                                    {sponsorContent}
+                                </a>
+                            );
+                        } else {
+                            return sponsorContent;
+                        }
+                    })}
+                </div>
+            ) : null
+        }
+    </div>
+</section>

@@ -9,12 +9,15 @@ import Community from "../components/landing/Community.astro";
 import ProjectShowcase from "../components/landing/ProjectShowcase.astro";
 import Gallery from "../components/landing/Gallery.astro";
 import OpenDays from "../components/landing/OpenDays.astro";
+import Sponsorer from "../components/landing/Sponsorer.astro";
 import Footer from "../components/landing/Footer.astro";
 
 import heroImage from "../assets/sparkly.jpg";
 import communityImage from "../assets/folk.jpg";
 import printersImage from "../assets/printers.jpg";
 import toolsImage from "../assets/tools.jpg";
+import sparebank1SMNLogo from "../assets/logos/sparebank1-smn.svg";
+import nrkLogo from "../assets/logos/nrk.svg";
 ---
 
 <Layout>
@@ -51,7 +54,7 @@ import toolsImage from "../assets/tools.jpg";
             <About
                 id="om-oss"
                 title="Hva er Hackheim?"
-		callout="Hackheim er trolig Trondheims - og et av Norges eldste uavhengige skaperverksteder:"
+                callout="Hackheim er trolig Trondheims - og et av Norges eldste uavhengige skaperverksteder:"
                 description="Vi er en frivillig organisasjon, som driftes av våre brukere. Vårt mål er å være en åpen og sosial møteplass, der: innovasjon, samarbeid, gjenbruk og skaperglede står i sentrum."
                 cards={[
                     {
@@ -125,7 +128,7 @@ import toolsImage from "../assets/tools.jpg";
                 paragraphs={[
                     "Et hackerspace kjennetegnes av medlemmer som kommer sammen for å arbeide med hobbyprosjekter, både hardware- og softwarebasert. Motivasjonen for arbeidet er lysten til å lære noe nytt, lage noe nyttig, eller rett og slett fordi det er tøft!",
                     "Det sentrale i denne typen forening er det å skape noe sammen andre, sosialisere og utveksle kunnskap. Vi ønsker å samle alle teknologiinteresserte under et tak for å utveksle kunnskap og inspirasjon på tvers av fagområder.",
-		    "Sløydsalene er borte fra skolene og elektronikk har blitt noe “magisk” man finner inne i telefonen. Heldigvis finnes det skaperverksteder - der alt kan læres. Besøk oss, da vel!",
+                    "Sløydsalene er borte fra skolene og elektronikk har blitt noe “magisk” man finner inne i telefonen. Heldigvis finnes det skaperverksteder - der alt kan læres. Besøk oss, da vel!",
                 ]}
                 buttons={[
                     {
@@ -178,7 +181,7 @@ import toolsImage from "../assets/tools.jpg";
                 backgroundClass=""
             />
         </div>
-        <div class="pt-16 pb-32 bg-card/30">
+        <div class="pt-16 pb-16 bg-card/30">
             <OpenDays
                 id="apne-dager"
                 title="Kom på besøk!"
@@ -200,6 +203,33 @@ import toolsImage from "../assets/tools.jpg";
                     icon: "Users",
                     href: "/wiki/welcome/join#medlemskap",
                 }}
+            />
+        </div>
+        <div class="py-16">
+            <Sponsorer
+                id="sponsorer"
+                title="Sponsorer"
+                description="Takk til våre sponsorer som støtter Hackheim og vårt fellesskap"
+                sponsors={[
+                    {
+                        name: "Sparebank1 SMN",
+                        logo: sparebank1SMNLogo,
+                        url: "https://www.sparebank1.no/nb/smn/",
+                    },
+                ]}
+            />
+        </div>
+        <div class="py-16 bg-card/30">
+            <Sponsorer
+                id="eksterne-prosjekter"
+                title="Eksterne prosjekter"
+                description="Bedrifter og organisasjoner vi har samarbeidet med på spennende prosjekter"
+                sponsors={[
+                    {
+                        name: "NRK",
+                        logo: nrkLogo,
+                    },
+                ]}
             />
         </div>
         <Footer />
