@@ -5,6 +5,10 @@ export interface Props {
     id?: string;
     title: string;
     description?: string;
+    sponsCallout?: {
+        text: string;
+        url: string;
+    };
     sponsorTiers?: Array<{
         tierName: string;
         sponsors: Array<{
@@ -23,10 +27,11 @@ export interface Props {
         url?: string;
         description?: string;
     }>;
+    
     backgroundClass?: string;
 }
 
-const { id, title, description, sponsorTiers, sponsors, backgroundClass } =
+const { id, title, description, sponsorTiers, sponsors, backgroundClass, sponsCallout} =
     Astro.props;
 
 const logoSizeClasses = {
@@ -38,7 +43,7 @@ const logoSizeClasses = {
 
 <section id={id} class={`px-4 ${backgroundClass || ""}`}>
     <div class="container mx-auto max-w-6xl">
-        <div class="text-center mb-12">
+        <div class="text-center mb-6">
             <h3
                 class="text-3xl md:text-4xl font-bold text-primary mb-4"
                 style="font-family: 'Space Grotesk', sans-serif;"
@@ -62,12 +67,12 @@ const logoSizeClasses = {
                             <h4 class="text-xl font-semibold text-center text-muted-foreground mb-8">
                                 {tier.tierName}
                             </h4>
-                            <div class="flex flex-wrap justify-center items-center gap-8">
+                            <div class="flex flex-wrap justify-center items-stretch gap-8">
                                 {tier.sponsors.map((sponsor) => {
                                     const logoSizeClass =
                                         logoSizeClasses[tier.logoSize || "md"];
                                     const sponsorContent = (
-                                        <div class="flex flex-col items-center justify-center p-6 min-w-48">
+                                        <div class="flex flex-col items-center justify-start p-6 min-w-48 h-full">
                                             {sponsor.logo ? (
                                                 <Image
                                                     width={200}
@@ -93,7 +98,7 @@ const logoSizeClasses = {
                                                 </div>
                                             )}
                                             {sponsor.logo && (
-                                                <div class="text-sm font-medium text-center text-muted-foreground">
+                                                <div class="text-sm font-medium text-center text-muted-foreground mt-auto">
                                                     {sponsor.name}
                                                 </div>
                                             )}
@@ -106,13 +111,17 @@ const logoSizeClasses = {
                                                 href={sponsor.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                class="block text-inherit no-underline"
+                                                class="flex text-inherit no-underline"
                                             >
                                                 {sponsorContent}
                                             </a>
                                         );
                                     } else {
-                                        return sponsorContent;
+                                        return (
+                                            <div class="flex">
+                                                {sponsorContent}
+                                            </div>
+                                        );
                                     }
                                 })}
                             </div>
@@ -120,20 +129,22 @@ const logoSizeClasses = {
                     ))}
                 </div>
             ) : sponsors ? (
-                <div class="flex flex-wrap justify-center items-center gap-8">
+                <div class="flex flex-wrap justify-center items-stretch gap-8">
                     {sponsors.map((sponsor) => {
                         const sponsorContent = (
-                            <div class="flex flex-col items-center justify-center p-6 min-w-48">
+                            <div class="flex flex-col items-center justify-start p-6 min-w-48 h-full">
                                 {sponsor.logo ? (
-                                    <Image
-                                        width={200}
-                                        src={sponsor.logo}
-                                        alt={
-                                            sponsor.logoAlt ||
-                                            `${sponsor.name} logo`
-                                        }
-                                        class={`${logoSizeClasses.md} w-auto object-contain mb-2 filter grayscale hover:grayscale-0 transition-all duration-200`}
-                                    />
+                                    <div class="flex items-center justify-center flex-grow">
+                                        <Image
+                                            width={200}
+                                            src={sponsor.logo}
+                                            alt={
+                                                sponsor.logoAlt ||
+                                                `${sponsor.name} logo`
+                                            }
+                                            class={`${logoSizeClasses.md} w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-200`}
+                                        />
+                                    </div>
                                 ) : (
                                     <div class="text-center">
                                         <div class="text-lg font-semibold text-foreground mb-1">
@@ -147,7 +158,7 @@ const logoSizeClasses = {
                                     </div>
                                 )}
                                 {sponsor.logo && (
-                                    <div class="text-sm font-medium text-center text-muted-foreground">
+                                    <div class="text-sm font-medium text-center text-muted-foreground mt-auto">
                                         {sponsor.name}
                                     </div>
                                 )}
@@ -160,17 +171,32 @@ const logoSizeClasses = {
                                     href={sponsor.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="block text-inherit no-underline"
+                                    class="flex text-inherit no-underline"
                                 >
                                     {sponsorContent}
                                 </a>
                             );
                         } else {
-                            return sponsorContent;
+                            return (
+                                <div class="flex">
+                                    {sponsorContent}
+                                </div>
+                            );
                         }
                     })}
                 </div>
             ) : null
+        }
+        {sponsCallout &&
+        <div class="text-center mb-6 mt-16">
+            <p class="text-lg text-muted-foreground text-pretty italic">
+                {sponsCallout.text}
+            </p>
+            
+            <a href={sponsCallout.url} class="inline-flex items-center justify-center transition-colors rounded-md no-underline bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 ">
+                les mer her
+            </a>
+        </div>
         }
     </div>
 </section>

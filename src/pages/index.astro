@@ -17,6 +17,8 @@ import communityImage from "../assets/folk.jpg";
 import printersImage from "../assets/printers.jpg";
 import toolsImage from "../assets/tools.jpg";
 import sparebank1SMNLogo from "../assets/logos/sparebank1-smn.svg";
+import testIndustriesLogo from "../assets/logos/sponsor1.svg";
+import placecolderCompany from "../assets/logos/sponsor2.svg";
 import nrkLogo from "../assets/logos/nrk.svg";
 ---
 
@@ -209,12 +211,26 @@ import nrkLogo from "../assets/logos/nrk.svg";
             <Sponsorer
                 id="sponsorer"
                 title="Sponsorer"
-                description="Takk til våre sponsorer som støtter Hackheim og vårt fellesskap"
+                description="Takk til våre sponsorer som støtter Hackheim og vårt fellesskap."
+                sponsCallout={{
+                    text: "Kunne et bedriftsmedlemsskap være interessant for deg?",
+                    url: "#",
+                }}
                 sponsors={[
                     {
                         name: "Sparebank1 SMN",
                         logo: sparebank1SMNLogo,
-                        url: "https://www.sparebank1.no/nb/smn/",
+                        url: "https://www.sparebank1.no/nb/smn/",                    
+                    },
+                    {
+                        name: "Test Industries AS",
+                        logo: testIndustriesLogo,
+                        url: "#",
+                    },
+                    {
+                        name: "Placeholder AS",
+                        logo: placecolderCompany,
+                        url: "#",
                     },
                 ]}
             />
