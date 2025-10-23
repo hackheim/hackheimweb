@@ -63,6 +63,15 @@ export default defineConfig({
               ],
             },
             {
+              label: "Prosjekter",
+              items: [
+                {
+                  label: "Red Monkey Loddekit",
+                  slug: "wiki/projects/red-monkey",
+                },
+              ]
+            },
+            {
               label: "Kontakt oss",
               slug: "wiki/welcome/contact",
             },
