@@ -69,6 +69,10 @@ export default defineConfig({
                   label: "Red Monkey Loddekit",
                   slug: "wiki/projects/red-monkey",
                 },
+                {
+                  label: "Overlord robotkontroller",
+                  slug: "wiki/projects/overlord",
+                },
               ]
             },
             {
