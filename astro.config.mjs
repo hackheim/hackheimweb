@@ -73,6 +73,10 @@ export default defineConfig({
                   label: "Overlord robotkontroller",
                   slug: "wiki/projects/overlord",
                 },
+                {
+                  label: "Verdens farligste postordrebutikk",
+                  slug: "wiki/projects/ionray",
+                },  
               ]
             },
             {
