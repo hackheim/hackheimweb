@@ -1,7 +1,17 @@
-
 ---
-title: Verdens farligste postordrebutikk
-description: Ionepistol for hvermansen
+title: "Ionepistol for hvermansen"
+description: "Verdens farligste postordrebutikk"
+author: "Hans Jørgen Grimstad"
+date: 2024-10-29
+tags: ["Robot", "Design", "Elektronikk", "Dynamixel", "Cybergear", "IMU"]
+type: "showcase"
+featured: true
+difficulty: "advanced"
+
+
+coverImage: "./pictures/catalog_page.jpg"
+
+published: true
 ---
 
 80-tallet var et ekstremt kjedelige tiår (riktignok marginalt med interessant enn 70-tallet). Den første offentlig tilgjengelige internettforbindelsen kom ikke før i 1991, så det var nada streaming, ingen sosiale medier, telefoner hadde ledning, og det kostet mye penger å ringe til noen utenfor byen du bodde i.
@@ -23,7 +33,12 @@ I 1983, så la jeg merket til at de reklamerte for en bok som het ["Build Your O
 Men, - jeg klarte det og boka ankom til slutt.
 
 
-![bok](./pictures/book_cover.jpg)
+import { Image } from "astro:assets";
+import cover from "./pictures/book_cover.jpg";
+
+<div style="text-align: center;">
+<Image src={cover} alt="Book cover" width="720"/>
+</div>
 
 Dette var ulikt alt annet jeg hadde sett i bokform før og det var litteratur som kjørte fletta av alt de hadde på biblioteket (Kanskje med unntak av [Tesla-biografien fra 1944](https://www.amazon.com/Prodigal-Genius-Life-Nikola-Tesla/dp/1596057130) jeg hadde lånt gjennom bibloteket og utgaven av ["Colorado Springs Notes"](https://www.scribd.com/doc/335469/Nikola-Tesla-s-Colorado-Springs-Notes) i biblioteksinnbinding, som jeg hadde lyktes i å bestille med god hjelp av damen i engelskavdelingen på [Bruns bokhandel](https://no.wikipedia.org/wiki/F._Bruns_Bokhandel) i Trondheim).
 
@@ -32,21 +47,35 @@ Dette var bedre enn sci-fi. Det var sci-fi i praksis! D.v.s. sci-fi-dingser man 
 
 Jeg oppdaget en del år senere at forfatteren bak boka ([Robert Iannini](https://www.wired.com/2013/01/information-unlimited/)) drev det som Wired Magazine omtalte, som ["mannen bak postordrebutikken for verdens farligste elektronikkbyggesett"](https://www.wired.com/2013/01/information-unlimited/). Dvs ["Information Unlimited"](https://web.archive.org/web/20230718194519/https://www.amazing1.com/)(Wayback machine, så treg link). Iannini døde i 1983 i en alder av 85 år, og da ble også websjappa [amazing1.com](https://web.archive.org/web/20230718194519/https://www.amazing1.com/) lagt ned. Jeg har fremdeles en av katalogene derfra, og den er fremdeles spennende å bla i.
 
-![catalog cover](./pictures/catalog_cover.jpg)
-![catalog page](./pictures/catalog_page.jpg)
+
+import catalog_cover from "./pictures/catalog_cover.jpg";
+import catalog_page from "./pictures/catalog_page.jpg";
+
+<div style="text-align: center;">
+<Image src={catalog_cover} alt="Catalog cover" width="720"/>
+<Image src={catalog_page} alt="Catalog page" width="720"/>
+</div>
 
 Nå ser jo verden litt anderledes ut og alt av komponenter og materialer er bare et tastetrykk unna. Jeg bestemte meg derfor for å bygge en av Iannini sine kreasjoner til [Trondheim Skaperfest](https://www.skaperfest.no/) for et par år siden.
 Kretsen er rimelig enkel, og baserer seg på at man genererer høyspenning ved å drive primærsiden på en flybacktrafo (uten innebygget likeretter) med et par transistorer. Man jorder så enden av sekundærspolen og kjører så "lavspent"-siden (ca 20000V) inn in [Cockroft Walton multiplier](https://en.wikipedia.org/wiki/Cockcroft%E2%80%93Walton_generator) for å booste spenninga til et for alle andre praktiske formål enn en ione-"pistol" smått absurd potensiale. Hvis denne biten ikke støpes inn i parafinvoks eller epoxy, så vil du ha [corona](https://en.wikipedia.org/wiki/Corona_discharge) (ionelekkasje) all over og det ender gjerne med at kretsen ødelegger seg selv.
 
 Man terminerer hele greia i en synål, og feltet i tuppen på denne vil være såpass intenst at du får en mer eller mindre kontrollert ionelekkasje ut fra spissen. Disse ionene er såpass mobile at du kan peke innretningen på venner og bekjente for å lade dem opp, slik at de får støt neste gang de tar i noe annet. Kanskje etter å ha spurt dem om lov først.
 
-![catalog page](./pictures/circuit.jpg)
+import circuit from "./pictures/circuit.jpg";
+
+<div style="text-align: center;">
+<Image src={circuit} alt="Circuit" width="720"/>
+</div>
 
 Siden jeg er litt lat, så valgte jeg å handle en ferdig bygget 200W [ZVS driver fra AliExpress](https://www.aliexpress.com/w/wholesale-200W-zvs-driver.html) for å drive primærsiden av flybacktrafoen. Jeg brukte ferrit-kjernen fra en død flyback fra et CO2 laser powersupply, 3D printet min egen bobbin og viklet så noen tusen runder med 0.2mm lakkisolert kobbertråd. Jeg gjorde så en kjapp test for å dra streamere med denne for å danne meg et inntrykk av utspenninga (ca 10000V/cm). Denne ble så støpt inn i epoxy.
 Cockroft-Walton kretsen ble montert inne i et akrylrør, som så ble fylt med 2-komponent silikon fra [FormX.eu](https://formx.eu/)
 
 Noen 3D-printede deler og et slaktet Super8-kamera (fra Fretex) senere og vi hadde den første prototypen.
 
-![demo](./pictures/demo.jpg)
+import demo from "./pictures/demo.jpg";
+
+<div style="text-align: center;">
+<Image src={demo} alt="Demo" width="720"/>
+</div>
 
 Operatøren her har på gummihansker, siden "lavspent"-siden på ca 20000V AC er litt dårlig isolert ned mot avtrekkeren, så man får gjerne noen små RF-brannsår fra streamere på avtrekkerfingeren hvis man er litt uheldig.
