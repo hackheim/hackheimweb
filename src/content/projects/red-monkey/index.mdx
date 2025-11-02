@@ -9,21 +9,18 @@ featured: true
 difficulty: "intermediate"
 projectId: "red-monkey-v1"
 variants:
+  - slug: "simple"
+    label: "Enkel variant"
+    features: { premountedSpeaker: true, premountedICs: true }
   - slug: "full"
     label: "Full DIY"
-    features: { premountedResistor: false, premountedMCU: false }
-    includeTags: ["diy"]
-  - slug: "premounted"
-    label: "Premounted MCU + Resistor"
-    features: { premountedResistor: true, premountedMCU: true }
-    excludeTags: ["diy"]
 
 coverImage: "./pictures/step26.jpg"
 
 published: true
 ---
 
-import { Guide, BuildStep, LearnStep, Callout, StepImage, If } from "../../../components/guide";
+import { Guide, BuildStep, LearnStep, Callout, StepImage, If, VariantSelector } from "../../../components/guide";
 
 import step1 from "./pictures/step1.jpg";
 import step2 from "./pictures/step2.jpg";
@@ -31,8 +28,23 @@ import step3 from "./pictures/step3.jpg";
 import step4 from "./pictures/step4.jpg";
 import step5 from "./pictures/step5.jpg";
 import step6 from "./pictures/step6.jpg";
-
-FOobar
+import step7 from "./pictures/step7.jpg";
+import step8 from "./pictures/step8.jpg";
+import step9 from "./pictures/step9.jpg";
+import step10 from "./pictures/step10.jpg";
+import step11 from "./pictures/step11.jpg";
+import step12 from "./pictures/step12.jpg";
+import step13_14 from "./pictures/step13_14.jpg";
+import step15 from "./pictures/step15.jpg";
+import step16 from "./pictures/step16.jpg";
+import step17 from "./pictures/step17.jpg";
+import step18 from "./pictures/step18.jpg";
+import step19 from "./pictures/step19.jpg";
+import step20 from "./pictures/step20.jpg";
+import step21 from "./pictures/step21.jpg";
+import step22 from "./pictures/step22.jpg";
+import step23 from "./pictures/step23.jpg";
+import step24 from "./pictures/step24.jpg";
 
 <Guide>
 
@@ -44,33 +56,39 @@ FOobar
     <Callout type="info">
       Dette settet ble lansert på [Oslo Skaperfestival 2025](https://deichman.no/aktuelt/oslo-skaperfestival-2025_D67nCl3o7T).
     </Callout>
+
+    <VariantSelector />
   </If>
 
   {/* Variant-only content: the actual guide */}
   <If variant>
 
-    <LearnStep id="safety" title="Viktig om lodding">
-      Ta en titt på spissen på loddebolten. Hvis den er svart, vil urenhetene skape en barriere for varmen.
-
-      Loddebolten må være oppvarmet til korrekt temperatur - 370 grader hvis du har temperaturkontroll.
-
-      <Callout type="warning">
-        Spissen på loddebolten må berøre **både** pinnen på komponenten og kobberet på kretskortet samtidig.
-      </Callout>
-    </LearnStep>
-
-    <BuildStep id="prep" title="Forberedelse og utstyr" tags={["diy"]}>
+    <BuildStep id="prep" title="Forberedelse og utstyr">
       Nødvendig utstyr før du begynner:
 
       1. Loddebolt og loddetinn
       2. Liten avbitertang ("side cutter")
       3. Stjerneskrujern
       4. Batterier (4.5V til 15V)
-
-      <Callout type="info">
-        Høyere spenning = høyere lyd. 9V er "sånn passe" lydnivå.
-      </Callout>
     </BuildStep>
+
+    <LearnStep id="soldering-basics" title="Hvordan lodde">
+      Loddebolten må være oppvarmet til korrekt temperatur før man begynner. Hvis dere har en loddebolt med temperaturkontroll, så still temperaturen på 370 grader. Dette er langt over smeltetemperaturen til loddetinnet, men det gjør at den nødvendige berøringstiden blir mye kortere.
+
+      <Callout type="warning">
+        Spissen på loddebolten må berøre **både** pinnen på komponenten og kobberet på kretskortet **samtidig**.
+      </Callout>
+
+      Hold spissen inntil, mens man forsiktig fører loddetinnet bort til de to varme delene. Når begge er varme nok, så flyter tinnet som en film, som drar seg over både kobber på kretskortet og pinnen som skal loddes fast.
+    </LearnStep>
+
+    <LearnStep id="soldering-maintenance" title="Holde loddebolten ren">
+      Ta en titt på spissen på loddebolten. Hvis den er svart, så vil urenhetene skape en barriere for varmen, det blir da nærmest umulig å lodde.
+
+      Loddebolten _blir_ møkkete hver gang man lodder. Derfor er det viktig at man drar spissen på loddebolten over en fuktig loddesvamp, eller dytter den gjennom loddeull i messing etter hver lodding.
+
+      Hvis hverken loddeull eller loddesvamp hjelper, så finnes det noe som heter "Tip Activator". Dette er en miks av loddetinn og kjemikalier som fjerner oksideringen på en skitten loddebolt.
+    </LearnStep>
 
     <If not="premountedResistor">
       <BuildStep id="resistors" title="Monter motstandene R3, R4, R6, R7" tags={["diy","resistor"]}>
@@ -82,37 +100,193 @@ FOobar
 
         <StepImage src={step2} alt="Motstander plassert" />
       </BuildStep>
-    </If>
 
-    <If not="premountedResistor">
       <BuildStep id="solder-resistors" title="Lodd fast motstandene" tags={["diy","resistor"]}>
         <StepImage src={step3} alt="Snu kortet og lodd" />
 
         Snu kortet slik at baksiden ligger opp og lodd fast ledningene som stikker ut.
+
+        <StepImage src={step4} alt="Lodding av motstander" />
+
         Etterpå klipper du av de ekstra pinnene.
 
-        <StepImage src={step4} alt="Klipp av overflødig ledning" />
         <StepImage src={step5} alt="Ferdig loddet motstander" />
+
+        Gratulerer. Du kan nå lodde. Klapp deg selv på skulderen. Bra jobba! (men vi er ikke helt ferdige ennå)
       </BuildStep>
+
+      <LearnStep id="about-resistors" title="Litt om faste motstander">
+        Fargekoden til disse sier noe om hvilken verdi de har i ohm ("Ohm" Etter Georg Ohm). Jo høyere verdi de har, jo mindre strøm slipper de gjennom.
+
+        Kretskortet er merket med "R" + et tall der de faste motstandene skal loddes fast.
+
+        <Callout type="info">
+          En motstand på 0 ohm gir ingen motstand. En motstand på 200 ohm slipper gjennom halvparten så mye strøm som en motstand på 100 ohm. Jo høyere verdi, jo mindre strøm slipper gjennom motstanden.
+        </Callout>
+
+        R3, R4, R6 og R7 i dette settet er faste motstander. Det har ingenting å si hvilken vei disse monteres på kretskortet.
+      </LearnStep>
     </If>
+
+    <LearnStep id="about-leds" title="Litt om lysdioder (LEDs)">
+      Disse kalles også for lysdioder. De fungerer på samme måte som en vanlig diode, men de lyser også. Disse må monteres riktig vei for at de skal virke.
+
+      Legg merke til at de har en rett kant på siden. Dette er også merket på kretskortet. Pass på at den rette kanten på dioden er på samme side som den rette kanten på merkingen på kretskortet.
+    </LearnStep>
 
     <BuildStep id="leds" title="Monter lysdiodene (D1 og D2)">
       <StepImage src={step6} alt="Plassering av LED-er" />
 
+      Det neste er å montere lysdioder i øynene. Dette er de helt gjennomsiktige komponentene.
+
       <Callout type="warning">
         Pass på at den flate siden på lysdioden står riktig vei i forhold til hvordan D1 og D2 er tegnet på kretskortet.
-        Flat side på lysdioden skal mot flat side på tegningen.
+        Flat side på lysdioden skal mot flat side på tegningen for at Red Monkey skal kunne ha lys i øynene.
       </Callout>
 
-      Sett lysdiodene på plass og bøy ut ledningene bak, før du lodder de fast og klipper av de overflødige ledningene.
+      Sett lysdiodene (D1 og D2) på plass og bøy ut ledningene bak, før du lodder de fast og så klipper av de overflødige ledningene.
+
+      <StepImage src={step7} alt="LED-er plassert" />
+      <StepImage src={step8} alt="Lodding av LED-er" />
     </BuildStep>
 
-    <If has="premountedMCU">
-      <LearnStep id="premounted-info" title="Premounted versjon">
-        I denne versjonen er MCU og noen motstander allerede montert for deg. Du kan hoppe over de tilsvarende trinnene.
+    <LearnStep id="about-capacitors" title="Litt om kondensatorer">
+      Tenk på disse som en "bøtte" du kan lagre strøm i. De fungerer nesten som et batteri. De kan lades opp og de kan lades ut.
+
+      Kondensatorer kommer i forskjellige størrelser, former og fasonger. Verdien på en kondensator angis i F ("Fahrad". Til ære for Michael Fahraday).
+
+      Det har ingenting å si hvilken vei C1 og C2 monteres på kretskortet (keramiske kondensatorer), men C3 (elektrolyttkondensator) må montere slik at pinnen merket "-" monteres i hullet for "-" og pinnen merket "+" monteres i hullet for "+".
+    </LearnStep>
+
+    <BuildStep id="capacitors" title="Monter kondensatorene C1 og C2">
+      <StepImage src={step9} alt="Plassering av kondensatorer" />
+
+      Så skal vi montere kondensatorene. Det er viktig at ikke C1 og C2 bytter plass. C1 må monteres der det står "C1" på kretskortet og C2 må monteres på plassen til "C2" (De ser helt identiske ut, men de har forskjellig verdi).
+
+      Bøy ut ledningene på baksiden, snu kortet, lodd dem fast og klipp av på samme måte som før.
+
+      <StepImage src={step10} alt="Kondensatorer loddet" />
+    </BuildStep>
+
+    <If not="premountedICs">
+      <LearnStep id="about-ic-sockets" title="Litt om IC-sokler">
+        Vi skal nå montere soklene til de integrerte kretsene. Disse gjør at vi lett kan bytte ut kretsene senere hvis de skulle bli ødelagt (De er veldig vanskelige å lodde av igjen hvis vi lodder dem rett på kortet).
+
+        Soklene har et lite hakk i siden. Pass på at dette står på samme side som markeringen på kretskortet.
       </LearnStep>
+
+      <BuildStep id="ic-sockets" title="Monter IC-soklene">
+        <StepImage src={step11} alt="Plassering av IC-sokler" />
+
+        Soklene har mye kortere pinner, men du kan likevel bøye pinnene på baksiden forsiktig ut med fingeren, slik at de henger fast når du skal snu kortet på hodet for å lodde de fast.
+
+        <StepImage src={step12} alt="IC-sokler loddet" />
+      </BuildStep>
+
+      <LearnStep id="about-555-ic" title="Litt om 555-kretser">
+        Dette er komponenter som har andre komponenter inni seg. Det er takket være slike at vi har TV, internett og datamaskiner (blant mye annet). Det er takket være disse at du kan bruke flere timer om dagen på å doom-scrolle på telefonen din.
+
+        555 er en gammel integrert krets som gjør en eneste ting. Det er en krets som kan telle. Den har 8 bein og litt avhengig av hva man kobler til de 8 beinene, så kan du få den til å telle på veldig mange forskjellige måter - blant annet, så kan du bruke den til å lage lyder, som du så kan plage venner, lærere eller foreldre med.
+
+        <Callout type="danger">
+          Det er **VELDIG** viktig at den monteres riktig vei. Den har et lite hakk i siden, eller en liten prikk. Dette viser hva som er pinne "1". På kretskortet, så er siden som pinne "1" er på, merket enten med en tilsvarende prikk eller et lite "hakk" i den ene enden av tegningen.
+        </Callout>
+
+        Siden dette er de to komponentene som kan bli ødelagt hvis man kobler noe feil, så er det alltid lurt å montere i sokler.
+      </LearnStep>
+
+      <BuildStep id="insert-555" title="Sett inn 555-kretsene">
+        <StepImage src={step13_14} alt="Innsetting av 555-kretser" />
+
+        Du kan nå sette inn 555-kretsene (innpakket i grå/sølvfarget folie). Dette er det vanskeligste trinnet, så du må være litt forsiktig.
+
+        Plasser den ene raden pinner i mot sokkelen først. Deretter holder du på hver side og "lirker" den andre raden av pinner på plass på sin side. Vær forsiktig og ikke trykk for hardt, siden pinnene da kan bøye seg eller treffe utenfor sokkelen. Pass på at alle pinnene hvert sitt hull i sokkelen.
+
+        <Callout type="danger">
+          Pass på at den blanke sirkelen ved en av pinnene er på samme side som "hakket" / merket på siden av sokkelen. Hvis du setter den inn feil vei, så vil den sannsynelig bli ødelagt når du senere kobler til batteriet.
+        </Callout>
+
+        <StepImage src={step15} alt="555-kretser på plass" />
+        <StepImage src={step16} alt="Nærbilde av 555-krets" />
+        <StepImage src={step17} alt="Begge 555-kretser montert" />
+      </BuildStep>
     </If>
 
-  </If>
+    <LearnStep id="about-potentiometers" title="Litt om variable motstander (potentiometer)">
+      Disse kalles også for "potentiometer". Dette er motstander der du kan variere hvor mye strøm som slipper gjennom. Eksempelvis, så kan et potentiometer på 100kOhm varieres mellom 0 ohm og 100kOhm ved at man skrur på knotten på potentiometeret. Det er slike du kan bruke til å kontrollere hva slags lyder som Red Monkey lager.
 
+      R1 og R2 er variable motstander. Disse har 5 pinner, og de passer bare en vei på kretskortet.
+    </LearnStep>
+
+    <BuildStep id="potentiometers" title="Monter potentiometrene (R1 & R2)">
+      <StepImage src={step18} alt="Plassering av potentiometer" />
+
+      Det neste steget er å montere potentiometrene (R1 & R2). Disse kan bare monteres en vei og det er det samme hvilket du monterer hvor, siden de er identiske.
+
+      Sikt på de tre midterste pinnene først, slik at disse er nede i hullene sine. Deretter presser du litt på de to festeørene på siden og klemmer dem ned på kretskortet før du lodder på baksiden.
+
+      <StepImage src={step19} alt="Potentiometer montert" />
+      <StepImage src={step20} alt="Begge potentiometer montert" />
+    </BuildStep>
+
+    <LearnStep id="about-diode" title="Litt om dioder">
+      Dette er komponenter som bare leder strøm en vei. Vi kan bruke en sånn for å beskytte kretskortet hvis man ved et uhell skulle koble batteriet feil vei.
+    </LearnStep>
+
+    <BuildStep id="diode-and-capacitor" title="Monter D3 og C3">
+      <StepImage src={step21} alt="Plassering av D3 og C3" />
+
+      De neste komponentene vi skal montere er D3 og C3. (D3 skal beskytte kretskortet vårt i fall noen skulle putte inn batteriet feil vei.)
+
+      <Callout type="warning">
+        For D3, så pass på at den hvite stripen på dioden står på samme side som den hvite stripen på symbolet på kretskortet.
+      </Callout>
+
+      <Callout type="warning">
+        For C3, så pass på at "-" på kondensatoren (merket på siden) peker mot det hvite feltet i sirkelen.
+      </Callout>
+
+      Bøy pinnene, monter, bøy pinnene ut, lodd på plass og klipp av på vanlig måte.
+
+      <StepImage src={step22} alt="D3 og C3 montert" />
+    </BuildStep>
+
+    <If not="premountedSpeaker">
+      <BuildStep id="speaker" title="Skru fast høyttaleren">
+        <StepImage src={step23} alt="Montering av høyttaler" />
+
+        Helt til slutt, så skal vi skru fast høyttaleren og lodde fast ledningene til denne. (Du vil nå trenge et lite stjerneskrujern)
+
+        Hold høyttaleren på baksiden av kretskortet og stikk inn en av skruene fra oversiden. Skru den helt inn i et av hullene i høyttaleren. Fortsett så med de andre skruene inntil alle er festet. Skru litt med fingrene først og bruk deretter skrujern for å feste den helt.
+
+        Snu deretter kretskortet på hodet. Lodd så en ledning mellom hver av terminalene på høyttaleren og hullene i kretskortet på siden av høyttaleren.
+
+        <StepImage src={step24} alt="Høyttaler montert og loddet" />
+      </BuildStep>
+    </If>
+
+    <BuildStep id="battery-connector" title="Monter batterikontakten">
+      Det helt siste skrittet er å lodde fast batterikontakten på baksiden av kortet.
+
+      <Callout type="warning">
+        Rød ledning loddes til "+" og svart ledning til "-"
+      </Callout>
+
+      Batteriet eller batteripakken kan så festes på baksiden med dobbeltsidig tape. Når du kobler til batteriet, vil Red Monkey begynne å lage lyd. Ved å vri på de svarte knottene på potmetrene, så kan du så eksperimentere videre (og sannsynligvis drive lærere og foreldre til vanvidd hvis du bruker et 9V batteri).
+
+      **Bra jobba!**
+    </BuildStep>
+
+    <LearnStep id="volume-and-batteries" title="Batterier og lyd">
+      "Red Monkey" er bråkete. Hvor høy lyd byggesettet lager når det er ferdig er avhengig av spenningen på batteriet du velger å bruke. Lav spenning gir lav lyd og høy spenning gir høy lyd.
+
+      Det minste batteriet du kan bruke er 4.5V (Lyden er da ganske lav). Den absolutt største batteripakken du kan bruke er 15 V (Lyden er da ekstremt høy). 9V er "sånn passe" mht lydnivå, men læreren din er kanskje uenig i dette.
+
+      <Callout type="danger">
+        Høyere spenning enn 15V vil ødelegge flere av komponentene på kortet.
+      </Callout>
+    </LearnStep>
+  </If>
 </Guide>
+
+Kretsen som ligger til grunn i dette byggesettet ble først beskrevet av Forrest Mimms i 1979. Du finner den igjen i boken "The Forrest Mimms Engineer's Notebook", sammen med masse andre forskjellige kretser. Mange av disse kan dessverre ikke bygges i dag, siden flere av komponentene som brukes der ikke produseres lenger. "555" er et unntak.

@@ -5,3 +5,4 @@ export { default as BuildStep } from "./BuildStep.astro";
 export { default as LearnStep } from "./LearnStep.astro";
 export { default as Callout } from "./Callout.astro";
 export { default as StepImage } from "./StepImage.astro";
+export { default as VariantSelector } from "./VariantSelector.astro";

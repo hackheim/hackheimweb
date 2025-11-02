@@ -24,9 +24,11 @@ if (variants.length > 0) {
     features: {},
     includeTags: null,
     excludeTags: null,
+    variants: variants,
+    projectId: entry.id,
   };
 
-  const { Guide, BuildStep, LearnStep, Callout, StepImage, If } = GuideComponents;
+  const { Guide, BuildStep, LearnStep, Callout, StepImage, If, VariantSelector } = GuideComponents;
 
   // Just pass the components directly - they'll access context via Astro.locals
   components = {
@@ -36,12 +38,13 @@ if (variants.length > 0) {
     Callout,
     StepImage,
     If,
+    VariantSelector,
   };
 }
 ---
 
 {variants.length > 0 ? (
-  <ProjectRenderer project={entry} showVariantSelector={true}>
+  <ProjectRenderer project={entry}>
     <Content components={components} />
   </ProjectRenderer>
 ) : (

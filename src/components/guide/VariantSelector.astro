@@ -1,0 +1,31 @@
+---
+// src/components/guide/VariantSelector.astro
+import Icon from "../ui/Icon.astro";
+
+// Get context from Astro.locals
+const guideContext = Astro.locals.guideContext || {};
+const { isRoot = false, variants = [], projectId = "" } = guideContext;
+
+// Only show on root (when no variant is selected)
+if (!isRoot) return;
+
+// Don't render if no variants
+if (!variants || variants.length === 0) return;
+---
+
+<nav class="my-6 p-4 bg-card border rounded-xl">
+  <h2 class="text-lg font-semibold mb-3">Velg versjon:</h2>
+  <div class="grid gap-2">
+    {variants.map(v => (
+      <a
+        href={`/projects/${projectId}/${v.slug}`}
+        class="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/10 transition-colors"
+      >
+        <div>
+          <span class="font-medium">{v.label}</span>
+        </div>
+        <Icon name="ArrowRight" class="w-4 h-4" />
+      </a>
+    ))}
+  </div>
+</nav>
