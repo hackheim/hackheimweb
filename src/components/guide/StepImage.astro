@@ -1,7 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+
 const { src, alt = "", width = 960 } = Astro.props;
 ---
-<figure class="my-4">
-  <img src={src} alt={alt} width={width} />
-  {alt && <figcaption class="text-sm opacity-70">{alt}</figcaption>}
+<figure class="my-6">
+  <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+    <Image src={src} alt={alt} width={width} class="w-full h-auto" />
+  </div>
+  {alt && <figcaption class="text-sm text-gray-600 mt-2 text-center italic">{alt}</figcaption>}
 </figure>

@@ -5,10 +5,26 @@ const { id, title, tags = [], includeTags = null, excludeTags = null } = Astro.p
 const includePass = includeTags ? tags.some(t => includeTags.includes(t)) : true;
 const excludePass = excludeTags ? !tags.some(t => excludeTags.includes(t)) : true;
 if (!(includePass && excludePass)) return;
+
+// Increment and get step number from shared counter
+if (!Astro.locals.stepCounter) {
+  Astro.locals.stepCounter = { current: 0 };
+}
+Astro.locals.stepCounter.current += 1;
+const stepNumber = Astro.locals.stepCounter.current;
 ---
-<section id={id} class="rounded-2xl border p-4 my-6">
-  <header class="mb-2">
-    <h3 class="m-0 text-lg font-semibold">🔧 {title}</h3>
-  </header>
-  <div><slot /></div>
+<section id={id} class="build-step rounded-2xl border border-blue-200 bg-white shadow-sm p-6 my-8 relative">
+  <div class="flex items-start gap-4">
+    <div class="step-number flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+      {stepNumber}
+    </div>
+    <div class="flex-1">
+      <header class="mb-4">
+        <h3 class="m-0 text-xl font-semibold text-gray-900 flex items-center gap-2">
+          🔧 {title}
+        </h3>
+      </header>
+      <div class="step-content prose prose-sm max-w-none"><slot /></div>
+    </div>
+  </div>
 </section>

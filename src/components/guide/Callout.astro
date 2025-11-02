@@ -1,11 +1,36 @@
 ---
 const { type = "info" } = Astro.props;
-const cls = {
-  info: "border-blue-300 bg-blue-50",
-  warning: "border-amber-300 bg-amber-50",
-  danger: "border-red-300 bg-red-50",
-}[type] || "border-blue-300 bg-blue-50";
+
+const styles = {
+  info: {
+    border: "border-blue-300",
+    bg: "bg-blue-50",
+    icon: "ℹ️",
+    iconBg: "bg-blue-500"
+  },
+  warning: {
+    border: "border-amber-300",
+    bg: "bg-amber-50",
+    icon: "⚠️",
+    iconBg: "bg-amber-500"
+  },
+  danger: {
+    border: "border-red-300",
+    bg: "bg-red-50",
+    icon: "🚨",
+    iconBg: "bg-red-500"
+  }
+};
+
+const style = styles[type] || styles.info;
 ---
-<div class={`my-3 rounded-xl border p-3 ${cls}`}>
-  <slot />
+<div class={`callout my-4 rounded-xl border ${style.border} ${style.bg} p-4`}>
+  <div class="flex items-start gap-3">
+    <div class={`callout-icon flex-shrink-0 w-8 h-8 ${style.iconBg} text-white rounded-full flex items-center justify-center text-sm`}>
+      {style.icon}
+    </div>
+    <div class="callout-content flex-1 text-sm leading-relaxed">
+      <slot />
+    </div>
+  </div>
 </div>
