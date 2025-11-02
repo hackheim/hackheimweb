@@ -13,18 +13,14 @@ if (!Astro.locals.stepCounter) {
 Astro.locals.stepCounter.current += 1;
 const stepNumber = Astro.locals.stepCounter.current;
 ---
-<section id={id} class="build-step rounded-2xl border border-blue-200 bg-white shadow-sm p-6 my-8 relative">
-  <div class="flex items-start gap-4">
-    <div class="step-number flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-      {stepNumber}
-    </div>
-    <div class="flex-1">
-      <header class="mb-4">
-        <h3 class="m-0 text-xl font-semibold text-gray-900 flex items-center gap-2">
-          🔧 {title}
-        </h3>
-      </header>
-      <div class="step-content prose prose-sm max-w-none"><slot /></div>
-    </div>
-  </div>
+<section id={id} class="build-step rounded-2xl border border-blue-200 bg-white shadow-sm p-6 my-8 relative print:break-inside-avoid print:page-break-inside-avoid">
+  <header class="mb-4">
+    <h3 class="m-0 text-xl font-semibold text-gray-900 flex items-center gap-3">
+      <span class="step-number flex-shrink-0 w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+        {stepNumber}
+      </span>
+      🔧 {title}
+    </h3>
+  </header>
+  <div class="step-content prose prose-sm max-w-none"><slot /></div>
 </section>
