@@ -1,0 +1,23 @@
+---
+// src/components/guide/LearnStep.astro
+const { id, title, tags = [], includeTags = null, excludeTags = null } = Astro.props;
+
+const includePass = includeTags ? tags.some(t => includeTags.includes(t)) : true;
+const excludePass = excludeTags ? !tags.some(t => excludeTags.includes(t)) : true;
+if (!(includePass && excludePass)) return;
+---
+<section id={id} class="learn-step rounded-2xl border border-amber-200 bg-amber-50/50 p-6 my-8 relative">
+  <div class="flex items-start gap-4">
+    <div class="learn-icon flex-shrink-0 w-10 h-10 bg-amber-500 text-white rounded-full flex items-center justify-center text-xl">
+      💡
+    </div>
+    <div class="flex-1">
+      <header class="mb-4">
+        <h3 class="m-0 text-xl font-semibold text-gray-900 flex items-center gap-2">
+          {title}
+        </h3>
+      </header>
+      <div class="learn-content prose prose-sm max-w-none text-gray-700"><slot /></div>
+    </div>
+  </div>
+</section>
