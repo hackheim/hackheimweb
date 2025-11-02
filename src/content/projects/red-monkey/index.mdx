@@ -46,6 +46,14 @@ import step22 from "./pictures/step22.jpg";
 import step23 from "./pictures/step23.jpg";
 import step24 from "./pictures/step24.jpg";
 
+import resistorImg from "./pictures/resistor.webp";
+import ledImg from "./pictures/led.png";
+import cap1Img from "./pictures/cap1.png";
+import cap2Img from "./pictures/cap2.png";
+import potentiometerImg from "./pictures/potentiometer.png";
+import diodeImg from "./pictures/diode.png";
+import ic555Img from "./pictures/555.png";
+
 <Guide>
 
   {/* Root-only content: render a selector, intro, etc. */}
@@ -120,6 +128,8 @@ import step24 from "./pictures/step24.jpg";
 
         Kretskortet er merket med "R" + et tall der de faste motstandene skal loddes fast.
 
+        <StepImage src={resistorImg} alt="Fast motstand" />
+
         <Callout type="info">
           En motstand på 0 ohm gir ingen motstand. En motstand på 200 ohm slipper gjennom halvparten så mye strøm som en motstand på 100 ohm. Jo høyere verdi, jo mindre strøm slipper gjennom motstanden.
         </Callout>
@@ -132,6 +142,8 @@ import step24 from "./pictures/step24.jpg";
       Disse kalles også for lysdioder. De fungerer på samme måte som en vanlig diode, men de lyser også. Disse må monteres riktig vei for at de skal virke.
 
       Legg merke til at de har en rett kant på siden. Dette er også merket på kretskortet. Pass på at den rette kanten på dioden er på samme side som den rette kanten på merkingen på kretskortet.
+
+      <StepImage src={ledImg} alt="LED" />
     </LearnStep>
 
     <BuildStep id="leds" title="Monter lysdiodene (D1 og D2)">
@@ -156,6 +168,9 @@ import step24 from "./pictures/step24.jpg";
       Kondensatorer kommer i forskjellige størrelser, former og fasonger. Verdien på en kondensator angis i F ("Fahrad". Til ære for Michael Fahraday).
 
       Det har ingenting å si hvilken vei C1 og C2 monteres på kretskortet (keramiske kondensatorer), men C3 (elektrolyttkondensator) må montere slik at pinnen merket "-" monteres i hullet for "-" og pinnen merket "+" monteres i hullet for "+".
+
+      <StepImage src={cap1Img} alt="Keramisk kondensator" />
+      <StepImage src={cap2Img} alt="Elektrolyttkondensator" />
     </LearnStep>
 
     <BuildStep id="capacitors" title="Monter kondensatorene C1 og C2">
@@ -188,6 +203,8 @@ import step24 from "./pictures/step24.jpg";
 
         555 er en gammel integrert krets som gjør en eneste ting. Det er en krets som kan telle. Den har 8 bein og litt avhengig av hva man kobler til de 8 beinene, så kan du få den til å telle på veldig mange forskjellige måter - blant annet, så kan du bruke den til å lage lyder, som du så kan plage venner, lærere eller foreldre med.
 
+        <StepImage src={ic555Img} alt="555 integrert krets" />
+
         <Callout type="danger">
           Det er **VELDIG** viktig at den monteres riktig vei. Den har et lite hakk i siden, eller en liten prikk. Dette viser hva som er pinne "1". På kretskortet, så er siden som pinne "1" er på, merket enten med en tilsvarende prikk eller et lite "hakk" i den ene enden av tegningen.
         </Callout>
@@ -216,6 +233,8 @@ import step24 from "./pictures/step24.jpg";
       Disse kalles også for "potentiometer". Dette er motstander der du kan variere hvor mye strøm som slipper gjennom. Eksempelvis, så kan et potentiometer på 100kOhm varieres mellom 0 ohm og 100kOhm ved at man skrur på knotten på potentiometeret. Det er slike du kan bruke til å kontrollere hva slags lyder som Red Monkey lager.
 
       R1 og R2 er variable motstander. Disse har 5 pinner, og de passer bare en vei på kretskortet.
+
+      <StepImage src={potentiometerImg} alt="Variabel motstand (potentiometer)" />
     </LearnStep>
 
     <BuildStep id="potentiometers" title="Monter potentiometrene (R1 & R2)">
@@ -231,6 +250,8 @@ import step24 from "./pictures/step24.jpg";
 
     <LearnStep id="about-diode" title="Litt om dioder">
       Dette er komponenter som bare leder strøm en vei. Vi kan bruke en sånn for å beskytte kretskortet hvis man ved et uhell skulle koble batteriet feil vei.
+
+      <StepImage src={diodeImg} alt="Diode" />
     </LearnStep>
 
     <BuildStep id="diode-and-capacitor" title="Monter D3 og C3">
