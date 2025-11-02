@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from "astro:content";
+import * as GuideComponents from "../../../components/guide";
+import ProjectRenderer from "../../../components/_ProjectRenderer.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  const paths = [];
+  for (const p of projects) {
+    for (const v of (p.data.variants ?? [])) {
+      paths.push({ params: { project: p.id, variant: v.slug }, props: { entry: p, variant: v }});
+    }
+  }
+  return paths;
+}
+
+const { entry, variant } = Astro.props;
+
+const { Content } = await render(entry);
+
+// Set guide context in Astro.locals for components to access
+Astro.locals.guideContext = {
+  isRoot: false,
+  isVariant: true,
+  features: variant.features ?? {},
+  includeTags: variant.includeTags ?? null,
+  excludeTags: variant.excludeTags ?? null,
+};
+
+const { Guide, BuildStep, LearnStep, Callout, StepImage, If } = GuideComponents;
+
+// Just pass the components directly - they'll access context via Astro.locals
+const components = {
+  Guide,
+  BuildStep,
+  LearnStep,
+  Callout,
+  StepImage,
+  If,
+};
+---
+
+<ProjectRenderer project={entry} variant={variant}>
+  <Content components={components} />
+</ProjectRenderer>

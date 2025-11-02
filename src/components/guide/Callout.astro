@@ -1,0 +1,11 @@
+---
+const { type = "info" } = Astro.props;
+const cls = {
+  info: "border-blue-300 bg-blue-50",
+  warning: "border-amber-300 bg-amber-50",
+  danger: "border-red-300 bg-red-50",
+}[type] || "border-blue-300 bg-blue-50";
+---
+<div class={`my-3 rounded-xl border p-3 ${cls}`}>
+  <slot />
+</div>

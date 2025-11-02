@@ -1,0 +1,294 @@
+---
+// Shared component for rendering projects (prevents route creation due to underscore)
+import { render } from "astro:content";
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Header from "./landing/Header.astro";
+import Footer from "./landing/Footer.astro";
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
+
+interface Props {
+  project: any;
+  variant?: any;
+  showVariantSelector?: boolean;
+}
+
+const { project, variant, showVariantSelector = false } = Astro.props;
+const { Content } = await render(project);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("nb-NO", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+function getDifficultyColor(difficulty: string) {
+  switch (difficulty) {
+    case "beginner":
+      return "text-green-600 bg-green-100";
+    case "intermediate":
+      return "text-yellow-600 bg-yellow-100";
+    case "advanced":
+      return "text-red-600 bg-red-100";
+    default:
+      return "text-gray-600 bg-gray-100";
+  }
+}
+
+function getDifficultyLabel(difficulty: string) {
+  switch (difficulty) {
+    case "beginner":
+      return "Nybegynner";
+    case "intermediate":
+      return "Middels";
+    case "advanced":
+      return "Avansert";
+    default:
+      return difficulty;
+  }
+}
+
+const variants = project.data.variants ?? [];
+---
+
+<Layout>
+  <div class="min-h-screen bg-background">
+    <Header />
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Header -->
+      <div class="mb-4">
+        <div class="mb-4">
+          <Button href="/projects" variant="ghost" class="mr-2">
+            <Icon name="ArrowLeft" class="w-4 h-4 mr-2" />
+            Tilbake til prosjekter
+          </Button>
+
+          {variant && (
+            <Button href={`/projects/${project.id}`} variant="ghost">
+              <Icon name="ArrowLeft" class="w-4 h-4 mr-2" />
+              Tilbake til {project.data.title}
+            </Button>
+          )}
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          {
+            project.data.tags.map((tag: string) => (
+              <span class="px-2 py-1 bg-accent/20 text-accent-foreground rounded-full text-xs font-medium">
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+
+        <h1
+          class="text-3xl font-bold mb-3 text-foreground"
+          style="font-family: 'Space Grotesk', sans-serif;"
+        >
+          {project.data.title}
+          {variant && <span class="text-muted-foreground"> — {variant.label}</span>}
+        </h1>
+
+        <p class="text-lg text-muted-foreground mb-6">
+          {project.data.description}
+        </p>
+
+        <!-- Compact meta row -->
+        <div
+          class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6"
+        >
+          <div class="flex items-center">
+            <Icon name="User" class="w-4 h-4 mr-1" />
+            <span>{project.data.author}</span>
+          </div>
+          <div class="flex items-center">
+            <Icon name="Calendar" class="w-4 h-4 mr-1" />
+            <span>{formatDate(project.data.date)}</span>
+          </div>
+          {
+            project.data.estimatedTime && (
+              <div class="flex items-center">
+                <Icon name="Clock" class="w-4 h-4 mr-1" />
+                <span>{project.data.estimatedTime}</span>
+              </div>
+            )
+          }
+          <div class="flex items-center gap-2">
+            <span
+              class={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(project.data.difficulty)}`}
+            >
+              {getDifficultyLabel(project.data.difficulty)}
+            </span>
+            <span class="text-xs">
+              {
+                project.data.type === "tutorial"
+                  ? "📋 Tutorial"
+                  : "🎨 Showcase"
+              }
+            </span>
+          </div>
+        </div>
+
+        <!-- Variant Selector (shown only on root page if variants exist) -->
+        {showVariantSelector && variants.length > 0 && (
+          <nav class="my-6 p-4 bg-card border rounded-xl">
+            <h2 class="text-lg font-semibold mb-3">Velg versjon:</h2>
+            <div class="grid gap-2">
+              {variants.map(v => (
+                <a
+                  href={`/projects/${project.id}/${v.slug}`}
+                  class="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/10 transition-colors"
+                >
+                  <div>
+                    <span class="font-medium">{v.label}</span>
+                  </div>
+                  <Icon name="ArrowRight" class="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
+
+        <!-- Cover Image -->
+        {
+          project.data.coverImage && (
+            <div class="mb-4">
+              <Image
+                src={project.data.coverImage}
+                alt={project.data.title}
+                width={800}
+                height={300}
+                fit="cover"
+                format="webp"
+                quality={85}
+                class="w-full rounded-lg"
+                style="font-size: 1rem; text-align: center; color: var(--muted-foreground);"
+              />
+            </div>
+          )
+        }
+
+        <!-- Action buttons -->
+        <div class="flex flex-wrap gap-3 mb-5">
+          {
+            project.data.githubUrl && (
+              <Button
+                href={project.data.githubUrl}
+                variant="outline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="Github" class="w-4 h-4 mr-2" />
+                {project.data.type === "tutorial"
+                  ? "Kode & Filer"
+                  : "GitHub"}
+              </Button>
+            )
+          }
+          {
+            project.data.projectUrl && (
+              <Button
+                href={project.data.projectUrl}
+                variant="outline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon
+                  name="ExternalLink"
+                  class="w-4 h-4 mr-2"
+                />
+                Se prosjekt
+              </Button>
+            )
+          }
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="prose prose-lg max-w-none mb-10">
+        <slot>
+          <Content />
+        </slot>
+      </div>
+
+      <!-- CTA Section -->
+      <div
+        class="text-center bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-10"
+      >
+        {
+          project.data.type === "tutorial" ? (
+            <>
+              <h3 class="text-xl font-semibold mb-4">
+                Laget du dette prosjektet?
+              </h3>
+              <p class="text-muted-foreground mb-6">
+                Vi elsker å se hva medlemmene våre skaper! Del
+                ditt resultat med fellesskapet.
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 class="text-xl font-semibold mb-4">
+                Inspirert av dette prosjektet?
+              </h3>
+              <p class="text-muted-foreground mb-6">
+                Kom til Hackheim og få tilgang til verktøy og
+                veiledning for dine egne kreative prosjekter.
+              </p>
+            </>
+          )
+        }
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href="/wiki/welcome/join" variant="primary">
+            <Icon name="Users" class="w-4 h-4 mr-2" />
+            Bli medlem
+          </Button>
+          <Button href="/projects" variant="outline">
+            <Icon name="Grid3X3" class="w-4 h-4 mr-2" />
+            Se flere prosjekter
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .prose {
+    color: hsl(var(--foreground));
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: hsl(var(--foreground));
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  .prose code {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+  }
+
+  .prose pre {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .prose blockquote {
+    border-left: 4px solid hsl(var(--accent));
+    background: hsl(var(--card));
+    padding: 1rem;
+  }
+</style>

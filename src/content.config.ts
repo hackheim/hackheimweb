@@ -30,6 +30,14 @@ export const collections = {
         githubUrl: z.string().optional(),
         projectUrl: z.string().optional(),
         published: z.boolean().default(true),
+        projectId: z.string().optional(),
+        variants: z.array(z.object({
+          slug: z.string(),
+          label: z.string(),
+          features: z.record(z.boolean()).default({}),
+          includeTags: z.array(z.string()).optional(),
+          excludeTags: z.array(z.string()).optional(),
+        })).optional(),
       }),
   }),
   news: defineCollection({

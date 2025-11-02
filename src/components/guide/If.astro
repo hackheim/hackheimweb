@@ -1,0 +1,19 @@
+---
+// src/components/guide/If.astro
+const { has, not, root, variant } = Astro.props;
+
+// Get context from Astro.locals
+const guideContext = Astro.locals.guideContext || {};
+const { features = {}, isRoot = false, isVariant = false } = guideContext;
+
+const byFeature =
+  (has ? !!features[has] : true) &&
+  (not ? !features[not] : true);
+
+const byKind =
+  (root ? isRoot : true) &&
+  (variant ? isVariant : true);
+
+if (!(byFeature && byKind)) return;
+---
+<slot />

@@ -1,0 +1,14 @@
+---
+// src/components/guide/BuildStep.astro
+const { id, title, tags = [], includeTags = null, excludeTags = null } = Astro.props;
+
+const includePass = includeTags ? tags.some(t => includeTags.includes(t)) : true;
+const excludePass = excludeTags ? !tags.some(t => excludeTags.includes(t)) : true;
+if (!(includePass && excludePass)) return;
+---
+<section id={id} class="rounded-2xl border p-4 my-6">
+  <header class="mb-2">
+    <h3 class="m-0 text-lg font-semibold">🔧 {title}</h3>
+  </header>
+  <div><slot /></div>
+</section>
