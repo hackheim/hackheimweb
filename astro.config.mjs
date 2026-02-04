@@ -63,6 +63,10 @@ export default defineConfig({
               ],
             },
             {
+              label: "MeshCore",
+              slug: "wiki/welcome/meshcore",
+            },
+            {
               label: "Kontakt oss",
               slug: "wiki/welcome/contact",
             },
