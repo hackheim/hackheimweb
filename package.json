@@ -11,6 +11,7 @@
     "devdeploy": "astro build && wrangler deploy"
   },
   "dependencies": {
+    "@astro-community/astro-embed-youtube": "^0.5.10",
     "@astrojs/cloudflare": "^12.6.6",
     "@astrojs/starlight": "^0.35.2",
     "@astrojs/starlight-tailwind": "^4.0.1",
@@ -19,6 +20,7 @@
     "@lucide/svelte": "^0.544.0",
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.6.1",
+    "astro-embed": "^0.12.0",
     "astro-favicons": "^3.1.5",
     "esm-env": "^1.2.2",
     "sharp": "^0.34.2",
