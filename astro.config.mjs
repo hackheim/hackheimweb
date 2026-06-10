@@ -45,8 +45,12 @@ export default defineConfig({
               label: "Utstyr",
               items: [
                 {
-                  label: "3D Printer",
+                  label: "3D Printere",
                   slug: "wiki/welcome/equipment/3d-printer",
+                },
+                {
+                  label: "Elektronikk-lab",
+                  slug: "wiki/welcome/equipment/elektronikk-lab",
                 },
                 {
                   label: "Laserkutter",
@@ -60,10 +64,7 @@ export default defineConfig({
                   label: "Våre materialer for laserkutting",
                   slug: "wiki/welcome/equipment/materialer",
                 },
-                {
-                  label: "Elektronikk-lab",
-                  slug: "wiki/welcome/equipment/elektronikk-lab",
-                },
+
               ],
             },
             {
