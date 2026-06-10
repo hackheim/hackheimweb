@@ -60,6 +60,10 @@ export default defineConfig({
                   label: "Våre materialer for laserkutting",
                   slug: "wiki/welcome/equipment/materialer",
                 },
+                {
+                  label: "Elektronikk-lab",
+                  slug: "wiki/welcome/equipment/elektronikk-lab",
+                },
               ],
             },
             {
